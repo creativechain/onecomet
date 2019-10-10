@@ -1,5 +1,8 @@
 <?php
 
+use Collective\Html\FormFacade;
+use Collective\Html\HtmlFacade;
+
 return [
 
     /*
@@ -226,6 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];
