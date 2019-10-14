@@ -2,14 +2,14 @@
 
 ### Project
 
-##### Pre-requisites:
+### Pre-requisites:
 
 - NodeJs >= v10.15.3
 - [Composer](https://getcomposer.org)
 - PHP >= 7.2
 - MySQL or MariaDB
     
-##### Installation:
+### Installation:
 
 1. Clone repository:
     ```bash 
@@ -47,7 +47,7 @@
     php artisan migrate
     ```
 
-##### Compile assets:
+### Compile assets:
 The project provides several tools to efficiently compile and minify js and css files. Source files must be created and 
 modified within their respective directory in `resources`. For example, for SASS files, this must be created within 
 `resources/sass`. 
@@ -68,7 +68,7 @@ For live compilation (automatically compilation when file is changed and saved) 
 npm run watch
 ```
 
-#### Run project locally
+### Run project locally
 To run project locally execute:
 ```bash
 php artisan serve
