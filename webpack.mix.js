@@ -1,17 +1,31 @@
 const mix = require('laravel-mix');
 const fs = require('fs');
 
-const JS_FILES_DIR = 'resources/js/';
-const JS_OUTPUT_DIR = 'public/js/';
-const JS_EXCLUDE_FILES = [
-    'required', 'components'
-];
+class ResourceConfig {
+    constructor(type, filesDir, outputDir, excludeFiles = []) {
+        this.type = type;
+        /*this.filesDir = filesDir;*/
+        this.outputDir = outputDir;
+        this.excludeFiles = excludeFiles || [];
 
-const SASS_FILES_DIR = 'resources/sass/';
-const SASS_OUTPUT_DIR = 'public/css/';
-const SASS_EXCLUDE_FILES = [
-    'imported'
-];
+        let files = fs.readdirSync(filesDir);
+        this.excludeFiles.forEach(function (value) {
+            if (files.includes(value)) {
+                files.splice(files.indexOf(value), 1)
+            }
+        });
+
+        files.forEach(function (value, index) {
+            files[index] = filesDir + value;
+        });
+
+        this.files = files;
+    }
+}
+
+const JS_CONFIG = new ResourceConfig('js', 'resources/js/', 'public/js/', ['required', 'components']);
+
+const SASS_CONFIG = new ResourceConfig('sass', 'resources/sass/', 'public/css/', ['imported']);
 
 /*
  |--------------------------------------------------------------------------
@@ -24,24 +38,17 @@ const SASS_EXCLUDE_FILES = [
  |
  */
 
-const JS_FILES = fs.readdirSync(JS_FILES_DIR);
+/**
+ *
+ * @param {ResourceConfig} config
+ */
+function applyConf(config) {
+    config.files.forEach(function (file) {
+        mix[config.type](file, config.outputDir)
+    });
+}
 
-JS_EXCLUDE_FILES.forEach(function (value) {
-    JS_FILES.splice(JS_FILES.indexOf(value), 1);
-});
-
-const SASS_FILES = fs.readdirSync(SASS_FILES_DIR);
-
-SASS_EXCLUDE_FILES.forEach(function (value) {
-    SASS_FILES.splice(SASS_FILES.indexOf(value), 1);
-});
-
-JS_FILES.forEach(function (value, index, array) {
-    mix.js(JS_FILES_DIR + value, JS_OUTPUT_DIR);
-});
-
-SASS_FILES.forEach(function (value, index, array) {
-    mix.sass(SASS_FILES_DIR + value, SASS_OUTPUT_DIR);
-});
+applyConf(SASS_CONFIG);
+applyConf(JS_CONFIG);
 
 mix.disableSuccessNotifications();
