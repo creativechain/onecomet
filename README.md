@@ -26,7 +26,7 @@
     CREATE DATABASE onecomet;
     ```
         
-    - Create a new user to manage the DB. `dbuser` will be the username to access the DB, and `password` will be her
+    - Create a new user to manage the DB. `ocuser` will be the username to access the DB, and `password` will be her
     password to access. 
     ```mysql
     GRANT ALL PRIVILEGES ON onecomet.* TO 'ocuser'@'localhost' IDENTIFIED BY 'password';
