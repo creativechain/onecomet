@@ -16,3 +16,7 @@ yarn-error.log
 #Project files
 .idea
 localfiles
+
+#Compression file
+/public/css/*
+/public/js/*
