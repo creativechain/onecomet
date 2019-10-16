@@ -1,0 +1,10 @@
+// Botones
+.btn {
+  border-radius: 20px;
+  padding: 8px 50px;
+}
+.btn-primary {
+  color: #fff !important;
+  background-color: $c-primary;
+  border-color: $c-primary;
+}

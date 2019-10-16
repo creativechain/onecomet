@@ -2,64 +2,75 @@
 
 @section('content')
 <div class="container">
-
-    {!! Form::open(['route' => 'purchase.buy', 'method' => 'POST']) !!}
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('crea_user', 'Enviar a', ['class' => 'awesome']) !!}
-        {!! Form::input('text', 'crea_user', '', ['id' => 'crea_user', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-
-        @if ($errors->has('crea_user'))
-            <span class="help-block text-danger">
-                    <strong>{{ $errors->first('crea_user') }}</strong>
-                </span>
-        @endif
+    <div class="row mt-3 mb-4">
+        <div class="col-12 text-center">
+            <h1 class="titulo-seccion font-weight-bold">Comprar CREA nunca fue tan fácil</h1>
+        </div>
     </div>
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6">
+            <img src="{{URL::asset('img/home/onecomet-illustracion.png')}}" alt="profile Pic" class="img-fluid">
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card p-5" style="width: 100%">
+                <form class="m-form">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label class="mb-0" for="validationDefaultUsername">¿Cuánto quieres comprar?</label>
+                            <p class="sub-label">Introduce la cantidad que deseas pagar.</p>
+                            <div class="input-group">
+                                <input type="number" class="form-control text-right font-weight-bold" id="validationDefaultUsername" placeholder="100.000" aria-describedby="inputGroupPrepend2" required>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text input-eur font-weight-bold" id="inputGroupPrepend2">EUR</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-md-12 mb-3">
+                            <label class="mb-0" for="validationDefaultUsername">¿Qué tipo de token o servicio quieres?</label>
+                            <p class="sub-label">Elige el token que desees comprar.</p>
+                            <div class="input-group">
+                                <select class="form-control">
+                                    <option>Default select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-md-12 mb-3">
+                            <a href="" class="font-12">Precios y comisiones</a>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <p class="font-weight-bold text-uppercase font-12 mb-0">importe de la compra</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <ul class="list-inline list-unstyled m-ul-total mb-0">
+                                <li class="list-inline-item">
+                                    <p class="font-36 font-weight-bold c-primary mb-0">100,00 <span class="font-16 text-uppercase">eur</span> </p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <img src="{{URL::asset('img/home/simbolo-igual.png')}}" alt="profile Pic" class="img-fluid">
+                                </li>
+                                <li class="list-inline-item text-right">
+                                    <p class="font-weight-bold font-20 c-primary mb-0">243,789 CREA</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            {!! Form::label('payment_method', 'Método de pago', ['class' => 'awesome']) !!}
-            {!! Form::select('payment_method', ['card' => 'Tarjeta', 'bank' => 'Cuenta bancaria'], '', ['id' => 'payment_method', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-
-            @if ($errors->has('payment_method'))
-                <span class="help-block text-danger">
-                    <strong>{{ $errors->first('payment_method') }}</strong>
-                </span>
-            @endif
+                </form>
+            </div>
+            <div class="row mt-5 ">
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary text-uppercase font-14 font-weight-bold" type="submit">Comprar</button>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('crypto_currency', 'Crypto a comprar', ['class' => 'awesome']) !!}
-        {!! Form::select('crypto_currency', ['crea' => 'CREA', 'cbd' => 'CBD'], '', ['id' => 'crypto_currency', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-        @if ($errors->has('crypto_currency'))
-            <span class="help-block text-danger">
-                <strong>{{ $errors->first('crypto_currency') }}</strong>
-            </span>
-        @endif
-    </div>
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('fiat_currency', 'Moneda de pago', ['class' => 'awesome']) !!}
-        {!! Form::select('fiat_currency', ['eur' => 'Euro', 'usd' => 'Dollar'], '', ['id' => 'fiat_currency', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-        @if ($errors->has('fiat_currency'))
-            <span class="help-block text-danger">
-                <strong>{{ $errors->first('fiat_currency') }}</strong>
-            </span>
-        @endif
-    </div>
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('fiat_amount', 'Cantidad a comprar', ['class' => 'awesome']) !!}
-        {!! Form::input('number', 'fiat_amount', 10, ['min' => 10, 'step' => 0.01, 'id' => 'fiat_amount', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-        @if ($errors->has('fiat_amount'))
-            <span class="help-block text-danger">
-                <strong>{{ $errors->first('fiat_amount') }}</strong>
-            </span>
-        @endif
-    </div>
-
-    {!! Form::input('hidden','price', (rand(2, 100) / 100)) !!}
-
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
-    {!! Form::close() !!}
 </div>
 @endsection
