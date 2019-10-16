@@ -1,5 +1,5 @@
 {
-    "name": "owldevelopers/project-template",
+    "name": "creativechain/onecomet",
     "description": "Template for API/WEB projects with Laravel",
     "type": "project",
     "authors": [
@@ -17,7 +17,7 @@
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "laravel/cashier": "^10.3",
-        "laravel/framework": "^6.0",
+        "laravel/framework": "^6.2",
         "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^6.0"
