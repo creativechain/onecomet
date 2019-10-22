@@ -1,16 +1,20 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700&display=swap');
 
-// Variables
-@import 'imported/fonts';
-@import 'imported/colors';
-@import 'imported/botones';
+
 
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Variables
+@import 'imported/fonts';
+@import 'imported/colors';
+@import 'imported/botones';
+
 @import 'imported/modulos';
+
+
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -38,3 +42,6 @@ a:hover {
 }
 
 
+.border-bottom {
+ border-bottom: 1px solid $c-primary;
+}

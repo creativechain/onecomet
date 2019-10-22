@@ -31,3 +31,5 @@ Route::group(['prefix' => 'payments'], function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/address', 'AddressController@index')->name('address and payment');
