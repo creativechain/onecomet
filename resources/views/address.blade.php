@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container p-address">
     <div class="row mt-3 mb-4">
         <div class="col-12 text-center">
             <h1 class="titulo-seccion font-weight-bold">Compra CREA al instante con tu forma de pago preferida</h1>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="padding-card pl-5 pr-5 pt-3 pb-3">
                         <div class="form-row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-1">
                                 <label class="mb-0" for="validationDefaultUsername">1. Introduce tu usuario de Crea</label>
                                 <p class="sub-label">Es el nombre de @usuario con el que te conectas a creary.net</p>
                                 <div class="input-group mb-2">

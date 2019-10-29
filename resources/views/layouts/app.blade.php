@@ -111,11 +111,11 @@
                 <div class="col-12 col-md-3">
                     <p class="titulo-footer font-14 font-weight-bold text-white">Social Networks</p>
                     <ul class="list-unstyled list-inline ul-footer-social">
-                        <li class="list-inline-item"><i class="fab fa-twitter"></i></li>
+                        <li class="list-inline-item"><a href="https://twitter.com/onecometco" target="_blank"><i class="fab fa-twitter"></i></a></li>
                         <li class="list-inline-item">
-                            <img src="{{URL::asset('img/footer/crea.png')}}" alt="Onecomet" class="img-fluid">
+                            <a href="https://creary.net/@onecomet" target="_blank"><img src="{{URL::asset('img/footer/crea.png')}}" alt="Onecomet" class="img-fluid"></a>
                         </li>
-                        <li class="list-inline-item"><i class="fab fa-medium-m"></i></li>
+                        <li class="list-inline-item"><a href="https://medium.com/@onecomet" target="_blank"><i class="fab fa-medium-m"></i></a></li>
                     </ul>
                 </div>
             </div>
