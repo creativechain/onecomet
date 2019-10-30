@@ -30,3 +30,8 @@ Route::group(['prefix' => 'payments'], function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/address', 'AddressController@index')->name('address and payment');
+Route::get('/buyer', 'BuyerController@index')->name('Customer information');
+Route::get('/summary', 'SummaryController@index')->name('Summary of purchase');
+Route::get('/congratulation', 'CongratulationController@index')->name('Congratulation');
