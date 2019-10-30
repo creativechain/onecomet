@@ -19,7 +19,8 @@
                             <label class="mb-0" for="validationDefaultUsername">¿Cuánto quieres comprar?</label>
                             <p class="sub-label">Introduce la cantidad que deseas pagar.</p>
                             <div class="input-group">
-                                <input type="number" class="form-control text-right font-weight-bold" id="validationDefaultUsername" placeholder="100.000" aria-describedby="inputGroupPrepend2" required>
+                                {{--<input type="number" class="form-control text-right font-weight-bold" id="validationDefaultUsername" placeholder="100.000" aria-describedby="inputGroupPrepend2" required>--}}
+                                {!! Form::number('amount', 1, ['class' => 'form-control text-right font-weight-bold', 'id' => 'amount','placeholder' => '10', 'min' => 1, 'aria-describedby' => 'amount', 'required']) !!}
                                 <div class="input-group-prepend">
                                     <span class="input-group-text input-eur font-weight-bold" id="inputGroupPrepend2">EUR</span>
                                 </div>
@@ -31,9 +32,11 @@
                             <label class="mb-0" for="validationDefaultUsername">¿Qué tipo de token o servicio quieres?</label>
                             <p class="sub-label">Elige el token que desees comprar.</p>
                             <div class="input-group">
-                                <select class="form-control">
+                                {!! Form::select('crypto', $cryptoCurrencies, 'none', ['class' => 'form-control', 'id' => 'crypto', 'aria-describedby' => 'crypto', 'required']) !!}
+
+                                {{--<select class="form-control">
                                     <option>Default select</option>
-                                </select>
+                                </select>--}}
                             </div>
                         </div>
                     </div>
@@ -51,13 +54,13 @@
                         <div class="col-md-12">
                             <ul class="list-inline list-unstyled m-ul-total mb-0">
                                 <li class="list-inline-item">
-                                    <p class="font-36 font-weight-bold c-primary mb-0">100,00 <span class="font-16 text-uppercase">eur</span> </p>
+                                    <p class="font-36 font-weight-bold c-primary mb-0">1,00 <span class="font-16 text-uppercase">eur</span> </p>
                                 </li>
                                 <li class="list-inline-item">
                                     <img src="{{URL::asset('img/home/simbolo-igual.png')}}" alt="profile Pic" class="img-fluid">
                                 </li>
                                 <li class="list-inline-item text-right">
-                                    <p class="font-weight-bold font-20 c-primary mb-0">243,789 CREA</p>
+                                    <p class="font-weight-bold font-20 c-primary mb-0">{{ $lastPrice->convert(1) }} CREA</p>
                                 </li>
                             </ul>
                         </div>

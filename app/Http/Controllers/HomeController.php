@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\CurrencyPrice;
+use App\Utils\CurrenciesUtils;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +16,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $lastPrice = CurrencyPrice::getBuyPrice();
+        //TODO: Apply comissions to price
+
+        return view('home')
+            ->withLastPrice($lastPrice)
+            ->withFiatCurrencies(CurrenciesUtils::getFiatCurrenciesConfig())
+            ->withCryptoCurrencies(CurrenciesUtils::getCryptoCurrenciesConfig());
     }
 }
