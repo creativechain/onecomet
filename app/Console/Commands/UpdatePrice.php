@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\CoingeckoPriceUpdater;
 use App\Jobs\ExratesPriceUpdater;
 use App\Jobs\PriceUpdater;
 use Illuminate\Console\Command;
@@ -39,8 +40,13 @@ class UpdatePrice extends Command
      */
     public function handle()
     {
-        //
-        ExratesPriceUpdater::dispatch('crea', 'btc')->delay(now()->addSeconds(10));
-        ExratesPriceUpdater::dispatch('crea', 'usd')->delay(now()->addSeconds(10));
+        //Exrates
+        //ExratesPriceUpdater::dispatch('crea', 'btc')->delay(now()->addSeconds(10));
+        //ExratesPriceUpdater::dispatch('crea', 'usd')->delay(now()->addSeconds(10));
+
+        //Coingecko
+        CoingeckoPriceUpdater::dispatch('crea', 'btc')->delay(now()->addSeconds(10));
+        CoingeckoPriceUpdater::dispatch('crea', 'usd')->delay(now()->addSeconds(10));
+        CoingeckoPriceUpdater::dispatch('crea', 'eur')->delay(now()->addSeconds(10));
     }
 }

@@ -21,6 +21,7 @@ class HomeController extends Controller
         $lastPrice = CurrencyPrice::getBuyPrice();
         //TODO: Apply comissions to price
 
+        dd($lastPrice);
         //dd($methods);
         return view('home')
             ->withLastPrice($lastPrice)

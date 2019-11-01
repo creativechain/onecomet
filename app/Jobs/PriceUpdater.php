@@ -74,9 +74,11 @@ abstract class PriceUpdater implements ShouldQueue
 
                 $url .= $key . '=';
                 $url .= urlencode($val);
+                $first = true;
             }
         }
 
+        //dd($url);
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -94,6 +96,7 @@ abstract class PriceUpdater implements ShouldQueue
         curl_close($curl);
 
         if ($err) {
+            dd($err);
             return null;
         } else {
             return json_decode($response, true);
