@@ -5,3 +5,4 @@ composer update
 npm install
 php artisan migrate
 php artisan cache:clear
+npm run dev
