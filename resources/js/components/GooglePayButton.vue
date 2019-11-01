@@ -15,7 +15,7 @@
                 currency: 'eur',
                 total: {
                     label: 'OneComet',
-                    amount: this.amount
+                    amount: this.amount * 100
                 },
                 requestPayerName: false,
                 requestPayerEmail: false,
