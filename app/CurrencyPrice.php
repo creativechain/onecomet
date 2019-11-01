@@ -21,8 +21,9 @@ class CurrencyPrice extends Model
      * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
      */
     public static function getBuyPrice($currency = 'crea', $counterCurrency = 'usd' ) {
-        $dateInterval = [Carbon::now()->subHours(24), Carbon::now()];
+        $dateInterval = [Carbon::now()->subHours(24)->toDateTimeString(), Carbon::now()->toDateTimeString()];
 
+        //dd($dateInterval);
         return CurrencyPrice::query()
             ->where('currency', strtoupper($currency))
             ->where('counter_currency', strtoupper($counterCurrency))
