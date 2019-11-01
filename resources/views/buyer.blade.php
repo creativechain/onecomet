@@ -71,9 +71,9 @@
         <div class="col-12 col-md-3 text-center">
             <button class="font-14 btn btn-secondary text-uppercase font-weight-bold w-100" type="submit">Volver</button>
         </div>
-        <div class="col-12 col-md-3 text-center">
+        <a href="{{ route('summary') }}" class="col-12 col-md-3 text-center">
             <button class="font-14 btn btn-primary text-uppercase font-weight-bold w-100" type="submit">Continuar</button>
-        </div>
+        </a>
     </div>
 </div>
 @endsection

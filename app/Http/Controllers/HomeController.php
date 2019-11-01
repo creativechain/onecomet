@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CurrencyPrice;
 use App\Utils\CurrenciesUtils;
+use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -20,8 +21,10 @@ class HomeController extends Controller
         $lastPrice = CurrencyPrice::getBuyPrice();
         //TODO: Apply comissions to price
 
+        //dd($methods);
         return view('home')
             ->withLastPrice($lastPrice)
+            ->withPaymentMethods(PaymentUtils::getTranslatedAvailableMethods())
             ->withFiatCurrencies(CurrenciesUtils::getFiatCurrenciesConfig())
             ->withCryptoCurrencies(CurrenciesUtils::getCryptoCurrenciesConfig());
     }

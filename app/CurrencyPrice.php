@@ -13,10 +13,12 @@ class CurrencyPrice extends Model
 
     protected $table = 'currency_price';
 
+    protected $hidden = ['created_at', 'source', 'id'];
+
     /**
      * @param string $currency
      * @param string $counterCurrency
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
      */
     public static function getBuyPrice($currency = 'crea', $counterCurrency = 'usd' ) {
         $dateInterval = [Carbon::now()->subHours(24), Carbon::now()];

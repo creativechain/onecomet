@@ -28,10 +28,7 @@ Route::group(['prefix' => 'payments'], function () {
     Route::get('/error/{payment}', 'PurchaseController@errorPayment')->name('payments.error');
 });
 
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/address', 'AddressController@index')->name('address and payment');
-Route::get('/buyer', 'BuyerController@index')->name('Customer information');
-Route::get('/summary', 'SummaryController@index')->name('Summary of purchase');
-Route::get('/congratulation', 'CongratulationController@index')->name('Congratulation');
+Route::get('/address', 'AddressController@index')->name('address');
+Route::get('/buyer', 'BuyerController@index')->name('buyer');
+Route::get('/summary', 'SummaryController@index')->name('summary');
+Route::get('/congratulation', 'CongratulationController@index')->name('congratulations');

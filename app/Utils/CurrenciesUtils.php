@@ -11,14 +11,14 @@ class CurrenciesUtils
      * @return array
      */
     public static function getAvailableFiatCurrencies() {
-        return explode(',', env('CREA_AVAILABLE_FIAT_CURRENCIES'));
+        return explode(',', env('OC_AVAILABLE_FIAT_CURRENCIES'));
     }
 
     /**
      * @return array
      */
     public static function getAvailableCryptoCurrencies() {
-        return explode(',', env('CREA_AVAILABLE_CURRENCIES'));
+        return explode(',', env('OC_AVAILABLE_CURRENCIES'));
     }
 
     private static function getCurrenciesConfig($currencies) {

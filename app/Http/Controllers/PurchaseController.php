@@ -15,20 +15,20 @@ class PurchaseController extends Controller
     //
 
     public function index(Request $request) {
-        return View::make('home');
+        return View::make('test');
     }
 
     public function purchaseBuy(Request $request) {
         $request->validate([
             'crea_user' => 'required|string',
-            'payment_method' => 'required|string|in:card,bank',
-            'crypto_currency' => 'required|string|in:crea,cbd',
+            'payment_method' => 'required|string|in:card,gpay,apay',
+            'token' => 'required|string|in:crea,cbd',
             'fiat_currency' => 'required|string|in:eur,usd',
             'fiat_amount' => 'required|numeric|min:10',
             'price' => 'required|numeric'
         ]);
 
-        $crypto = $request->get('crypto_currency');
+        $crypto = $request->get('token');
         $price = $request->get('price');
         $fiatAmount = $request->get('fiat_amount');
 
@@ -54,7 +54,7 @@ class PurchaseController extends Controller
         $payment = new Payment();
         $payment->session_id = $session->id;
         $payment->method = $request->get('payment_method');
-        $payment->crypto = $request->get('crypto_currency');
+        $payment->crypto = $request->get('token');
         $payment->fiat = $request->get('fiat_currency');
         $payment->amount = intval($fiatAmount * 100);
         $payment->price = intval($request->get('price') * 100);
