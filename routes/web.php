@@ -24,8 +24,8 @@ Route::get('/purchase', 'PurchaseController@index')->name('purchase.index');
 Route::post('/purchase/buy', 'PurchaseController@purchaseBuy')->name('purchase.buy');
 
 Route::group(['prefix' => 'payments'], function () {
-    Route::get('/success/{sessionId}', 'PurchaseController@successPayment')->name('payments.success');
-    Route::get('/error/{sessionId}', 'PurchaseController@errorPayment')->name('payments.error');
+    Route::get('/process/{sessionId}', 'PurchaseController@processPayment')->name('payments.process');
+    Route::get('/cancel/{sessionId}', 'PurchaseController@cancelPayment')->name('payments.cancel');
 });
 
 Route::get('/address', 'AddressController@index')->name('address');

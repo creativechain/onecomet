@@ -24,46 +24,55 @@ class PurchaseController extends Controller
         return PaymentUtils::validatePayment($request);
     }
 
-    public function successPayment($sessionId) {
+    public function processPayment($sessionId) {
 
-        //dd($payment);
-        //$session = Session::retrieve($sessionId);
-        //$setUpIntent = SetupIntent::retrieve($session->setup_intent);
-        //$paymentMethod = PaymentMethod::retrieve($setUpIntent->payment_method);
-
-        $paymentMeta = PaymentMeta::query()
+        //Check if user was paid
+        $session = Session::retrieve($sessionId);
+        $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
+        $pmSession = PaymentMeta::query()
             ->where('meta_value', $sessionId)
             ->first();
-        $payment = Payment::query()->find($paymentMeta->payment_id);
 
-        if ($payment && $payment->status === 'created') {
-            $payment->status = 'success';
-            $payment->save();
+        $payment = Payment::query()->find($pmSession->payment_id);
 
-            return View::make('payments.success')
-                ->withPayment($payment);
-        } else {
-            return View::make('payments.rejected');
+        //If payment isn't in succeeded status, return to payment screen
+        switch ($paymentIntent->status) {
+            case 'succeeded';
+                $payment->status = 'success';
+                $payment->save();
+
+                return View::make('payments.success')
+                    ->withPayment($payment);
+            case 'canceled':
+                return View::make('payments.rejected')
+                    ->withPayment($payment);
+            default:
+                return View::make('purchase')
+                    ->withStripeSession($session);
         }
-
     }
 
-    public function errorPayment(Request $request, $sessionId) {
-
+    public function cancelPayment(Request $request, $sessionId) {
+        //Cancel payment
         $paymentMeta = PaymentMeta::query()
             ->where('meta_value', $sessionId)
             ->first();
-        $payment = Payment::query()->find($paymentMeta->payment_id);
+        $session = Session::retrieve($sessionId);
+        $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
 
-        if ($payment && $payment->status === 'created') {
-            $payment->status = 'error';
-            $payment->save();
-
-            return View::make('payments.error')
-                ->withPayment($payment);
-        } else {
+        //Only cancel this payment if it is not in 'succeeded' or 'canceled' status
+        if ($paymentIntent->status === 'succeeded' || $paymentIntent->status === 'canceled') {
             return View::make('payments.rejected');
         }
+
+        $paymentIntent->cancel();
+
+        $payment = Payment::query()->find($paymentMeta->payment_id);
+        $payment->status = 'canceled';
+        $payment->save();
+
+        return View::make('payments.canceled')
+            ->withPayment($payment);
 
     }
 }

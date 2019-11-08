@@ -130,7 +130,7 @@ class PaymentUtils
             'customer_email' => $email->meta_value,
             'payment_method_types' => [$request->get('payment_method')],
             'line_items' => [$paymentData],
-            'success_url' => env('APP_URL') . '/payments/success/{CHECKOUT_SESSION_ID}',
+            'success_url' => env('APP_URL') . '/payments/process/{CHECKOUT_SESSION_ID}',
             'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
         ]);
 
