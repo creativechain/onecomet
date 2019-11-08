@@ -47,13 +47,13 @@
                         <div class="col-md-12">
                             <ul class="list-inline list-unstyled m-ul-total mb-0">
                                 <li class="list-inline-item">
-                                    <p class="font-36 font-weight-bold c-primary mb-0">100,00 <span class="font-16 text-uppercase">eur</span> </p>
+                                    <p class="font-36 font-weight-bold c-primary mb-0">@{{ ("" + form.amount).replace('.', ',') }} <span class="font-16 text-uppercase">eur</span> </p>
                                 </li>
                                 <li class="list-inline-item">
                                     <img src="{{URL::asset('img/home/simbolo-igual.png')}}" alt="profile Pic" class="img-fluid">
                                 </li>
                                 <li class="list-inline-item text-right">
-                                    <p class="font-weight-bold font-20 c-primary mb-0">243,789 CREA</p>
+                                    <p class="font-weight-bold font-20 c-primary mb-0">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} CREA</p>
                                 </li>
                             </ul>
                         </div>
@@ -69,7 +69,12 @@
                                     <div class="input-group-text">@</div>
                                 </div>
                                 {{--<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">--}}
-                                {!! Form::text('username', null, ['v-model' => 'form.username', 'class' => 'form-control', 'id' => 'username','placeholder' => 'Username', 'aria-describedby' => 'username', 'required']) !!}
+                                {!! Form::text('crea_username', '', ['v-model' => 'form.username', 'class' => 'form-control', 'id' => 'crea_username','placeholder' => 'Username', 'aria-describedby' => 'crea_username', 'required']) !!}
+                                @if ($errors->has("crea_username"))
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first("crea_username") }}</strong>
+                                    </span>
+                                @endif
 
                             </div>
                         </div>
@@ -80,6 +85,11 @@
                             <p class="sub-label">A continuación selecciona el método de pago.</p>
                             <div class="input-group">
                                 {!! Form::select('payment_method', $paymentMethods, 'card', ['v-model' => 'form.payment_method', 'class' => 'form-control', 'id' => 'payment_method', 'aria-describedby' => 'payment_method', 'required']) !!}
+                                @if ($errors->has("payment_method"))
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first("payment_method") }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </div>

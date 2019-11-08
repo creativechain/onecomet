@@ -21,7 +21,7 @@ class CurrenciesUtils
         return explode(',', env('OC_AVAILABLE_CURRENCIES'));
     }
 
-    private static function getCurrenciesConfig($currencies) {
+    private static function getCurrenciesSymbols($currencies) {
         $cConfig = [];
 
         foreach ($currencies as $c) {
@@ -32,11 +32,22 @@ class CurrenciesUtils
         return $cConfig;
     }
 
+    /**
+     * @param $currency
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    public static function getCurrencyConfig($currency) {
+        $config = config("currencies.$currency");
+        $config['min_unit'] = $config['min_payment'] / (pow(10, $config['precision']));
+        $config['name'] = $currency;
+        return $config;
+    }
+
     public static function getCryptoCurrenciesConfig() {
-        return self::getCurrenciesConfig(self::getAvailableCryptoCurrencies());
+        return self::getCurrenciesSymbols(self::getAvailableCryptoCurrencies());
     }
 
     public static function getFiatCurrenciesConfig() {
-        return self::getCurrenciesConfig(self::getAvailableFiatCurrencies());
+        return self::getCurrenciesSymbols(self::getAvailableFiatCurrencies());
     }
 }

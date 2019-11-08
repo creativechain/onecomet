@@ -14,7 +14,7 @@ class UpdatePrice extends Command
      *
      * @var string
      */
-    protected $signature = 'price:update';
+    protected $signature = 'oc:update-price';
 
     /**
      * The console command description.

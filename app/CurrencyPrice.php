@@ -18,7 +18,7 @@ class CurrencyPrice extends Model
     /**
      * @param string $currency
      * @param string $counterCurrency
-     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
+     * @return CurrencyPrice
      */
     public static function getBuyPrice($currency = 'crea', $counterCurrency = 'usd' ) {
         $dateInterval = [Carbon::now()->subHours(24)->toDateTimeString(), Carbon::now()->toDateTimeString()];
@@ -32,7 +32,41 @@ class CurrencyPrice extends Model
             ->first();
     }
 
-    public function convert($number) {
-        return number_format($number / ($this->price / pow(10, $this->counter_precision)), $this->precision);
+    /**
+     * @param $number
+     * @param bool $format
+     * @return float|int|string
+     */
+    public function tokenToFiat($number, $format = true) {
+        //CREA ------ EUR
+        //1    ------ 0.039
+        //X    ------ ????
+
+        $conversion = $number * ($this->price / pow(10, $this->counter_precision));
+
+        if ($format) {
+            return number_format($conversion, $this->precision);
+        }
+
+        return $conversion;
+    }
+
+    /**
+     * @param $number
+     * @param bool $format
+     * @return float|int|string
+     */
+    public function fiatToToken($number, $format = true) {
+        //CREA ------ EUR
+        //25.641------ 1
+        //?    ------ X
+
+        $conversion = $number *  (1 / ($this->price / pow(10, $this->counter_precision)));
+
+        if ($format) {
+            return number_format($conversion, $this->precision);
+        }
+
+        return $conversion;
     }
 }

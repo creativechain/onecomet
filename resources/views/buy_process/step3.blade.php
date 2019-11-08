@@ -15,58 +15,103 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail1">Introduce email de contacto</label>
+                    <label for="email">Introduce email de contacto</label>
                     {{--<input type="email" class="form-control" id="" placeholder="Email">--}}
-                    {!! Form::email('email', null, ['v-model' => 'form.email', 'class' => 'form-control', 'id' => 'email','placeholder' => 'Email', 'aria-describedby' => 'email', 'required']) !!}
+                    {!! Form::email('email', '', ['v-model' => 'form.email', 'class' => 'form-control', 'id' => 'email','placeholder' => 'Email', 'aria-describedby' => 'email', 'required']) !!}
+                    @if ($errors->has("email"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("email") }}</strong>
+                        </span>
+                    @endif
 
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputDomicilio2">Introduce tu dirección</label>
+                    <label for="address">Introduce tu dirección</label>
                     {{--<input type="text" class="form-control" id="" placeholder="Domicilio">--}}
-                    {!! Form::text('address', null, ['v-model' => 'form.address', 'class' => 'form-control', 'id' => 'address','placeholder' => 'Domicilio', 'aria-describedby' => 'address', 'required']) !!}
+                    {!! Form::text('address', '', ['v-model' => 'form.address', 'class' => 'form-control', 'id' => 'address','placeholder' => 'Domicilio', 'aria-describedby' => 'address', 'required']) !!}
+                    @if ($errors->has("address"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("address") }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputPhone3">Introduce Teléfono Móvil y prefijo del país </label>
+                    <label for="phone">Introduce Teléfono Móvil y prefijo del país </label>
                    {{-- <input type="number" class="form-control" id="" placeholder="+00 000 000 000">--}}
-                    {!! Form::text('phone', null, ['v-model' => 'form.phone', 'class' => 'form-control', 'id' => 'phone','placeholder' => '+00 000 000 000', 'aria-describedby' => 'phone', 'required']) !!}
+                    {!! Form::text('phone', '', ['v-model' => 'form.phone', 'class' => 'form-control', 'id' => 'phone','placeholder' => '+00 000 000 000', 'aria-describedby' => 'phone', 'required']) !!}
+                    @if ($errors->has("phone"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("phone") }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputPostalCode4">Código Postal del domicilio</label>
+                    <label for="zip_code">Código Postal del domicilio</label>
                     {{--<input type="number" class="form-control" id="" placeholder="00000">--}}
-                    {!! Form::text('zip_code', null, ['v-model' => 'form.zip_code', 'class' => 'form-control', 'id' => 'zip_code','placeholder' => '00000', 'aria-describedby' => 'zip_code', 'required']) !!}
+                    {!! Form::text('zip_code', '', ['v-model' => 'form.zip_code', 'class' => 'form-control', 'id' => 'zip_code','placeholder' => '00000', 'aria-describedby' => 'zip_code', 'required']) !!}
+                    @if ($errors->has("zip_code"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("zip_code") }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="name5">Introduce tu nombre</label>
+                    <label for="name">Introduce tu nombre</label>
                     {{--<input type="text" class="form-control" id="" placeholder="Nombre">--}}
-                    {!! Form::text('name', null, ['v-model' => 'form.name', 'class' => 'form-control', 'id' => 'name','placeholder' => 'Nombre', 'aria-describedby' => 'name', 'required']) !!}
+                    {!! Form::text('name', '', ['v-model' => 'form.name', 'class' => 'form-control', 'id' => 'name','placeholder' => 'Nombre', 'aria-describedby' => 'name', 'required']) !!}
+                    @if ($errors->has("name"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("name") }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="provincia6">Provincia</label>
+                    <label for="state">Provincia</label>
                     {{--<input type="text" class="form-control" id="" placeholder="Provincia">--}}
-                    {!! Form::text('state', null, ['v-model' => 'form.state', 'class' => 'form-control', 'id' => 'state','placeholder' => 'Provincia', 'aria-describedby' => 'state', 'required']) !!}
+                    {!! Form::text('state', '', ['v-model' => 'form.state', 'class' => 'form-control', 'id' => 'state','placeholder' => 'Provincia', 'aria-describedby' => 'state', 'required']) !!}
+                    @if ($errors->has("state"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("state") }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="surname7">Introduce tu apellido</label>
+                    <label for="surname">Introduce tu apellido</label>
                     {{--<input type="email" class="form-control" id="" placeholder="Apellidos">--}}
-                    {!! Form::text('surname', null, ['v-model' => 'form.surname', 'class' => 'form-control', 'id' => 'surname','placeholder' => 'Apellidos', 'aria-describedby' => 'surname', 'required']) !!}
+                    {!! Form::text('surname', '', ['v-model' => 'form.surname', 'class' => 'form-control', 'id' => 'surname','placeholder' => 'Apellidos', 'aria-describedby' => 'surname', 'required']) !!}
+                    @if ($errors->has("surname"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("surname") }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="country8">País</label>
+                    <label for="country">País</label>
                     {{--<input type="password" class="form-control" id="" placeholder="España">--}}
-                    {!! Form::text('country', null, ['v-model' => 'form.country', 'class' => 'form-control', 'id' => 'country','placeholder' => 'País', 'aria-describedby' => 'country', 'required']) !!}
+                    {!! Form::text('country', '', ['v-model' => 'form.country', 'class' => 'form-control', 'id' => 'country','placeholder' => 'País', 'aria-describedby' => 'country', 'required']) !!}
+                    @if ($errors->has("country"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("country") }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="dateOfBirth9">Fecha de nacimiento</label>
+                    <label for="birth_date">Fecha de nacimiento</label>
                     {{--<input type="email" class="form-control" id="inputEmail4" placeholder="00/00/00">--}}
-                    {!! Form::date('birth_date', null, ['v-model' => 'form.birth_date', 'class' => 'form-control', 'id' => 'birth_date','placeholder' => '00/00/00', 'aria-describedby' => 'birth_date', 'required']) !!}
+                    {!! Form::date('birth_date', '', ['v-model' => 'form.birth_date', 'class' => 'form-control', 'id' => 'birth_date','placeholder' => '00/00/00', 'aria-describedby' => 'birth_date', 'required']) !!}
+                    @if ($errors->has("birth_date"))
+                        <span class="help-block text-danger">
+                            <strong>{{ $errors->first("birth_date") }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
         </div>
@@ -78,6 +123,6 @@
         <button v-on:click="backStep(3)" class="font-14 btn btn-secondary text-uppercase font-weight-bold w-100" >Volver</button>
     </div>
     <div class="col-12 col-md-3 text-center">
-        <button v-on:click="nextStep(3)" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">Continuar</button>
+        <div v-on:click="nextStep(3)" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">Continuar</div>
     </div>
 </div>

@@ -1,21 +1,28 @@
-const EventEmitter = require('event-emitter');
+const EventEmitter = require('events');
 const HttpClient = require('./http');
+const Price = require('./price');
 
-class Application extends EventEmitter {
+class Application extends EventEmitter{
     constructor() {
         super();
     }
 
     fetchPrice(currency, counterCurrency, callback) {
-        let caller = new HttpClient(`/api/${currency}/${counterCurrency}`);
+        let that = this;
+        let caller = new HttpClient(`/api/price/${currency}/${counterCurrency}`);
         if (callback) {
-            caller.when('done' + caller.id, callback);
-            caller.when('fail' + caller.id, callback);
+            caller.when('done', callback);
+            caller.when('fail', callback);
         } else {
-            caller.when('done' + caller.id, (response) => {
-                console.log(response);
-                response = JSON.parse(response);
-                this.emit(`price.update`, currency, counterCurrency, response);
+            caller.when('done', (response) => {
+                try {
+                    response = JSON.parse(response);
+                    let price = new Price(response);
+                    that.emit("price.update", currency, counterCurrency, price);
+                } catch (e) {
+                    console.error(e);
+                }
+
             })
         }
         caller.get();
@@ -23,4 +30,6 @@ class Application extends EventEmitter {
     }
 }
 
-module.exports = Application;
+module.exports = {
+    Application
+};

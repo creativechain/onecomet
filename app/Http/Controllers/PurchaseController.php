@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
+use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Stripe\Checkout\Session;
@@ -19,53 +20,7 @@ class PurchaseController extends Controller
     }
 
     public function purchaseBuy(Request $request) {
-        $request->validate([
-            'crea_user' => 'required|string',
-            'payment_method' => 'required|string|in:card,gpay,apay',
-            'token' => 'required|string|in:crea,cbd',
-            'fiat_currency' => 'required|string|in:eur,usd',
-            'fiat_amount' => 'required|numeric|min:10',
-            'price' => 'required|numeric'
-        ]);
-
-        $crypto = $request->get('token');
-        $price = $request->get('price');
-        $fiatAmount = $request->get('fiat_amount');
-
-        $cryptoAmountToSend = number_format($fiatAmount / $price, 3, '.', '');
-        //dd($crypto, $price, $fiatAmount, $cryptoAmountToSend);
-        $paymentData = [
-            'name' => __('crypto.' . $crypto . '.name', [], 'en'),
-            'description' => __('crypto.' . $crypto . '.description', [], 'en'),
-            'currency' => $request->get('fiat_currency'),
-            'amount' => intval($request->get('fiat_amount') * 100),
-            'quantity' => 1,
-            'images' => ['https://creary.net/img/logo_creary_beta.svg']
-        ];
-
-        //dd($paymentData);
-        $session = Session::create([
-            'payment_method_types' => [$request->get('payment_method')],
-            'line_items' => [$paymentData],
-            'success_url' => env('APP_URL') . '/payments/success/{CHECKOUT_SESSION_ID}',
-            'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
-        ]);
-
-        $payment = new Payment();
-        $payment->session_id = $session->id;
-        $payment->method = $request->get('payment_method');
-        $payment->crypto = $request->get('token');
-        $payment->fiat = $request->get('fiat_currency');
-        $payment->amount = intval($fiatAmount * 100);
-        $payment->price = intval($request->get('price') * 100);
-        $payment->to_send = intval($cryptoAmountToSend * 1000);
-        $payment->send_to = $request->get('crea_user');
-        $payment->save();
-
-        //dd($session);
-
-        return View::make('purchase')
-            ->withStripeSession($session);
+        return PaymentUtils::validatePayment($request);
     }
 
     public function successPayment(Payment $payment) {

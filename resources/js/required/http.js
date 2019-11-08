@@ -2,7 +2,7 @@
  * Created by ander on 11/10/18.
  */
 
-const EventEmitter = require('event-emitter');
+const EventEmitter = require('events');
 const Utils = require('./utils');
 
 class HttpClient extends EventEmitter {
@@ -52,13 +52,13 @@ class HttpClient extends EventEmitter {
 
         this.xhr = $.ajax(settings)
             .done(function (data, textStatus, jqXHR) {
-                that.emit('done' + that.id, data, textStatus, jqXHR);
+                that.emit('done', data, textStatus, jqXHR);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
-                that.emit('fail' + that.id, jqXHR, textStatus, errorThrown);
+                that.emit('fail', jqXHR, textStatus, errorThrown);
             })
             .always(function (data, textStatus, jqXHR) {
-                that.emit('always' + that.id, data, textStatus, jqXHR);
+                that.emit('always', data, textStatus, jqXHR);
             })
     }
 
@@ -69,7 +69,7 @@ class HttpClient extends EventEmitter {
      * @returns {HttpClient}
      */
     when(event, callback) {
-        this.on(event + this.id, callback);
+        this.on(event, callback);
         return this;
     }
 

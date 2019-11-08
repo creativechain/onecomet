@@ -16,10 +16,16 @@
                         <p class="sub-label">Introduce la cantidad que deseas pagar.</p>
                         <div class="input-group">
                             {{--<input type="number" class="form-control text-right font-weight-bold" id="validationDefaultUsername" placeholder="100.000" aria-describedby="inputGroupPrepend2" required>--}}
-                            {!! Form::number('amount', 1, ['v-model' => 'form.amount', 'class' => 'form-control text-right font-weight-bold', 'id' => 'amount','placeholder' => '10', 'min' => 1, 'aria-describedby' => 'amount', 'required']) !!}
+                            {!! Form::number('fiat_amount', $fiat['min_unit'], ['v-model' => 'form.amount', 'class' => 'form-control text-right font-weight-bold', 'id' => 'fiat_amount','placeholder' => $fiat['min_unit'], 'min' => $fiat['min_unit'], 'step' => '0.01', 'aria-describedby' => 'fiat_amount', 'required']) !!}
+                            {!! Form::hidden('fiat_currency', $fiat['name']) !!}
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-eur font-weight-bold" id="inputGroupPrepend2">EUR</span>
                             </div>
+                            @if ($errors->has("fiat_amount"))
+                                <span class="help-block text-danger">
+                                    <strong>{{ $errors->first("fiat_amount") }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -28,11 +34,13 @@
                         <label class="mb-0" for="validationDefaultUsername">¿Qué tipo de token o servicio quieres?</label>
                         <p class="sub-label">Elige el token que desees comprar.</p>
                         <div class="input-group">
-                            {!! Form::select('token', $cryptoCurrencies, 'none', ['v-model' => 'form.token', 'class' => 'form-control', 'id' => 'token', 'aria-describedby' => 'token', 'required']) !!}
+                            {!! Form::select('token', $cryptoCurrencies, 'none', ['v:model' => 'form.token', 'class' => 'form-control', 'id' => 'token', 'aria-describedby' => 'token', 'required']) !!}
 
-                            {{--<select class="form-control">
-                                <option>Default select</option>
-                            </select>--}}
+                            @if ($errors->has("token"))
+                                <span class="help-block text-danger">
+                                    <strong>{{ $errors->first("token") }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -50,13 +58,13 @@
                     <div class="col-md-12">
                         <ul class="list-inline list-unstyled m-ul-total mb-0">
                             <li class="list-inline-item">
-                                <p class="font-36 font-weight-bold c-primary mb-0">1,00 <span class="font-16 text-uppercase">eur</span> </p>
+                                <p class="font-36 font-weight-bold c-primary mb-0">@{{ ("" + form.amount).replace('.', ',') }} <span class="font-16 text-uppercase">eur</span> </p>
                             </li>
                             <li class="list-inline-item">
-                                <img src="{{URL::asset('img/home/simbolo-igual.png')}}" alt="profile Pic" class="img-fluid">
+                                <img src="{{ asset('img/home/simbolo-igual.png') }}" alt="profile Pic" class="img-fluid">
                             </li>
                             <li class="list-inline-item text-right">
-                                <p class="font-weight-bold font-20 c-primary mb-0">{{ $lastPrice->convert(1) }} CREA</p>
+                                <p class="font-weight-bold font-20 c-primary mb-0">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} CREA</p>
                             </li>
                         </ul>
                     </div>

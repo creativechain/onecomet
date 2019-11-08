@@ -6,15 +6,14 @@
 
 require('./required/bootstrap');
 
-const Application = require('./required/application');
+let {Application} = require('./required/application');
 
-module.exports = function () {
-    console.log('Welcome');
-    const oc = new Application();
 
+window.App = new Application();
+(function() {
     setInterval(function () {
 
-        oc.fetchPrice('crea', 'eur');
+        App.fetchPrice('crea', 'eur');
 
     }, 5 * 1000);
-}
+})();

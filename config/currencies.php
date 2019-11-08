@@ -15,10 +15,12 @@ return [
     ],
     'usd' => [
         'symbol' => '$',
-        'precision' => 2
+        'precision' => 2,
+        'min_payment' => 2500
     ],
     'eur' => [
         'symbol' => '€',
-        'precision' => 2
+        'precision' => 2,
+        'min_payment' => 2500
     ]
 ];

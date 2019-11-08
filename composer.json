@@ -15,14 +15,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "laravel/cashier": "^10.3",
         "laravel/framework": "^6.2",
         "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^6.0",
-        "ext-curl": "*",
-        "ext-json": "*"
+        "propaganistas/laravel-phone": "^4.2"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
