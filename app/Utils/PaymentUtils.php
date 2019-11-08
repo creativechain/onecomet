@@ -111,6 +111,11 @@ class PaymentUtils
             ->where('meta_key', '_total')
             ->first();
 
+        $email = PaymentMeta::query()
+            ->where('payment_id', $payment->id)
+            ->where('meta_key', '_email')
+            ->first();
+
         $paymentData = [
             'name' => __('crypto.' . $payment->crypto . '.name', [], 'en'),
             'description' => __('crypto.' . $payment->crypto . '.description', [], 'en'),
@@ -122,6 +127,7 @@ class PaymentUtils
 
         //dd($paymentData);
         $session = Session::create([
+            'customer_email' => $email->meta_value,
             'payment_method_types' => [$request->get('payment_method')],
             'line_items' => [$paymentData],
             'success_url' => env('APP_URL') . '/payments/success/{CHECKOUT_SESSION_ID}',
