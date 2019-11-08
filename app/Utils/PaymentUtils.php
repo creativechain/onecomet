@@ -77,7 +77,7 @@ class PaymentUtils
         $payment->send_to = $request->get('crea_username');
         $payment->save();
 
-        $params = $request->except(['payment_method', 'token', 'fiat_currency', 'fiat_amount', 'crea_username']);
+        $params = $request->except(['payment_method', 'token', 'fiat_currency', 'fiat_amount', 'crea_username', '_token']);
         $params['total'] = ($fiatAmount * 1.029) + 0.25;
 
         foreach ($params as $k => $value) {
@@ -128,7 +128,11 @@ class PaymentUtils
             'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
         ]);
 
-
+        $pmSessionId = new PaymentMeta();
+        $pmSessionId->payment_id = $payment->id;
+        $pmSessionId->meta_key = '_sessionId';
+        $pmSessionId->meta_value = $session->id;
+        $pmSessionId->save();
 
         //dd($session);
 

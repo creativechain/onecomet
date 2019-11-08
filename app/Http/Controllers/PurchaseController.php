@@ -36,7 +36,7 @@ class PurchaseController extends Controller
             ->first();
         $payment = Payment::query()->find($paymentMeta->payment_id);
 
-        if ($payment->status === 'created') {
+        if ($payment && $payment->status === 'created') {
             $payment->status = 'success';
             $payment->save();
 
@@ -55,7 +55,7 @@ class PurchaseController extends Controller
             ->first();
         $payment = Payment::query()->find($paymentMeta->payment_id);
 
-        if ($payment->status === 'created') {
+        if ($payment && $payment->status === 'created') {
             $payment->status = 'error';
             $payment->save();
 
