@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
+use App\PaymentMeta;
 use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -23,12 +24,17 @@ class PurchaseController extends Controller
         return PaymentUtils::validatePayment($request);
     }
 
-    public function successPayment(Payment $payment) {
+    public function successPayment($sessionId) {
 
         //dd($payment);
-        $session = Session::retrieve($payment->session_id);
-        $setUpIntent = SetupIntent::retrieve($session->setup_intent);
-        $paymentMethod = PaymentMethod::retrieve($setUpIntent->payment_method);
+        //$session = Session::retrieve($sessionId);
+        //$setUpIntent = SetupIntent::retrieve($session->setup_intent);
+        //$paymentMethod = PaymentMethod::retrieve($setUpIntent->payment_method);
+
+        $paymentMeta = PaymentMeta::query()
+            ->where('meta_value', $sessionId)
+            ->first();
+        $payment = Payment::query()->find($paymentMeta->payment_id);
 
         if ($payment->status === 'created') {
             $payment->status = 'success';
@@ -42,7 +48,12 @@ class PurchaseController extends Controller
 
     }
 
-    public function errorPayment(Request $request, Payment $payment) {
+    public function errorPayment(Request $request, $sessionId) {
+
+        $paymentMeta = PaymentMeta::query()
+            ->where('meta_value', $sessionId)
+            ->first();
+        $payment = Payment::query()->find($paymentMeta->payment_id);
 
         if ($payment->status === 'created') {
             $payment->status = 'error';
