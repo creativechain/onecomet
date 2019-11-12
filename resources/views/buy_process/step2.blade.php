@@ -5,7 +5,7 @@
 </div>
 <div class="row align-items-center">
     <div class="col-12 col-md-6">
-        <div class="card p-5" style="width: 100%">
+        <div class="card card-bg-blue p-5 mb-3" style="width: 100%">
             <div class="row">
                 <div class="col-12">
                     <ul class="list-unstyled">
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-12 col-md-2 text-center">
+                <div class="col-12 col-md-2 text-left text-md-center">
                     <p class="font-16 c-primary">1.</p>
                 </div>
                 <div class="col-12 col-md-10">
@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-12 col-md-2">
-                    <p class="font-16 c-primary text-center">2.</p>
+                    <p class="font-16 c-primary text-left text-md-center">2.</p>
                 </div>
                 <div class="col-12 col-md-10">
                     <p class="mt-0 font-12 mb-0">Selecciona el método de pago con el que quieres realizar la compra.</p>
@@ -99,7 +99,7 @@
     </div>
 </div>
 <div class="row justify-content-center mt-4 mb-4">
-    <div class="col-12 col-md-3 text-center">
+    <div class="col-12 col-md-3 text-center mb-3">
         <button v-on:click="backStep(2)" class="font-14 btn btn-secondary text-uppercase font-weight-bold w-100"> Volver</button>
     </div>
     <div class="col-12 col-md-3 text-center">

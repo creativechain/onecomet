@@ -32,3 +32,6 @@ Route::get('/address', 'AddressController@index')->name('address');
 Route::get('/buyer', 'BuyerController@index')->name('buyer');
 Route::get('/summary', 'SummaryController@index')->name('summary');
 Route::get('/congratulation', 'CongratulationController@index')->name('congratulations');
+
+
+Route::get('/test', 'TestController@index')->name('test');

@@ -1,65 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container p-congratulations vh-80">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h2 class="font-16 c-primary font-weight-bold my-5">TERMINOS Y CONDICIONES DEL SERVICIO  </h2>
+                <ul class="list-unstyled">
+                    <li><p class="font-14 c-primary font-weight-bold">1. INFORMACIÓN LEGAL</p></li>
+                    <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li><p class="font-14 c-primary font-weight-bold">2. PROCEDIMIENTO DE COMPRA</p></li>
+                    <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li><p class="font-14 c-primary font-weight-bold">3. DERECHO Y OBLIGACIONES DEL CLIENTE O USUARIO</p></li>
+                    <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li><p class="font-14 c-primary font-weight-bold">4. DERECHO Y OBLIGACIONES DEL CLIENTE O USUARIO</p></li>
+                    <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li><p class="font-14 c-primary font-weight-bold">5. COMPORTAMIENTO</p></li>
+                    <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p></li>
+                </ul>
+            </div>
 
-        {!! Form::open(['route' => 'purchase.buy', 'method' => 'POST']) !!}
-
-        <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            {!! Form::label('crea_user', 'Enviar a', ['class' => 'awesome']) !!}
-            {!! Form::input('text', 'crea_user', '', ['id' => 'crea_user', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-
-            @if ($errors->has('crea_user'))
-                <span class="help-block text-danger">
-                    <strong>{{ $errors->first('crea_user') }}</strong>
-                </span>
-            @endif
         </div>
-
-        <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            {!! Form::label('payment_method', 'Método de pago', ['class' => 'awesome']) !!}
-            {!! Form::select('payment_method', ['card' => 'Tarjeta', 'bank' => 'Cuenta bancaria'], '', ['id' => 'payment_method', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-
-            @if ($errors->has('payment_method'))
-                <span class="help-block text-danger">
-                    <strong>{{ $errors->first('payment_method') }}</strong>
-                </span>
-            @endif
-        </div>
-
-        <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            {!! Form::label('token', 'Crypto a comprar', ['class' => 'awesome']) !!}
-            {!! Form::select('token', ['crea' => 'CREA', 'cbd' => 'CBD'], '', ['id' => 'crypto_currency', 'class' => 'form-control', 'aria-describedby' => 'token', 'required']) !!}
-            @if ($errors->has('token'))
-                <span class="help-block text-danger">
-                <strong>{{ $errors->first('crypto_currency') }}</strong>
-            </span>
-            @endif
-        </div>
-
-        <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            {!! Form::label('fiat_currency', 'Moneda de pago', ['class' => 'awesome']) !!}
-            {!! Form::select('fiat_currency', ['eur' => 'Euro', 'usd' => 'Dollar'], '', ['id' => 'fiat_currency', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-            @if ($errors->has('fiat_currency'))
-                <span class="help-block text-danger">
-                <strong>{{ $errors->first('fiat_currency') }}</strong>
-            </span>
-            @endif
-        </div>
-
-        <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            {!! Form::label('fiat_amount', 'Cantidad a comprar', ['class' => 'awesome']) !!}
-            {!! Form::input('number', 'fiat_amount', 10, ['min' => 10, 'step' => 0.01, 'id' => 'fiat_amount', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-            @if ($errors->has('fiat_amount'))
-                <span class="help-block text-danger">
-                <strong>{{ $errors->first('fiat_amount') }}</strong>
-            </span>
-            @endif
-        </div>
-
-        {!! Form::input('hidden','price', (rand(2, 100) / 100)) !!}
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
-        {!! Form::close() !!}
     </div>
 @endsection

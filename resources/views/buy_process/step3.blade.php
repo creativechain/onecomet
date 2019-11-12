@@ -119,7 +119,7 @@
 
 </div>
 <div class="row justify-content-center mt-4 mb-4">
-    <div class="col-12 col-md-3 text-center">
+    <div class="col-12 col-md-3 text-center mb-3">
         <button v-on:click="backStep(3)" class="font-14 btn btn-secondary text-uppercase font-weight-bold w-100" >Volver</button>
     </div>
     <div class="col-12 col-md-3 text-center">

@@ -40,35 +40,9 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
+                        <li class="nav-item"><a class="nav-link" href="">Comprar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">ES</a></li>
+                        <li class="nav-item"><a class="nav-link"  href="">EN</a></li>
                     </ul>
                 </div>
             </div>
@@ -99,14 +73,16 @@
                 <div class="col-12 col-md-3">
                     <p class="titulo-footer font-14 font-weight-bold text-white">Métodos de pago</p>
                     <ul class="list-unstyled list-inline ul-footer-payment">
-                        <li class="list-inline-item"><i class="fab fa-cc-discover"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-cc-visa"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-cc-amex"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-cc-jcb"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-cc-discover"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-cc-diners-club"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-cc-apple-pay"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-cc-amazon-pay"></i></li>
+                        <li class="list-inline-item"><img src="{{URL::asset('img/footer/mastercard.png')}}" alt="mastercard" class="img-fluid"></li>
+                        <li class="list-inline-item"><img src="{{URL::asset('img/footer/visa.png')}}" alt="visa" class="img-fluid"></li>
+                        <li class="list-inline-item"><img src="{{URL::asset('img/footer/amex.png')}}" alt="amex" class="img-fluid"></li>
+                        <li class="list-inline-item"><img src="{{URL::asset('img/footer/jcb.png')}}" alt="jcb" class="img-fluid"></li>
+                        <li class="list-inline-item"><img src="{{URL::asset('img/footer/discover.png')}}" alt="google pay" class="img-fluid"></li>
+                        <li class="list-inline-item"><img src="{{URL::asset('img/footer/diners-club.png')}}" alt="google pay" class="img-fluid"></li>
+                        <li class="list-inline-item">
+                            <img src="{{URL::asset('img/footer/g-pay.png')}}" alt="google pay" class="img-fluid">
+                        </li>
+                        <li class="list-inline-item"><img src="{{URL::asset('img/footer/apple-pay.png')}}" alt="google pay" class="img-fluid"></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-3">

@@ -3,7 +3,7 @@
         <h1 class="titulo-seccion font-weight-bold">Por favor revisa los datos y confírma que son correctos</h1>
     </div>
 </div>
-<div class="row align-items-center">
+<div class="row align-items-top">
     <div class="col-12 col-md-6">
         <div class="card p-5" style="width: 100%">
             <div class="row">
@@ -52,7 +52,7 @@
     </div>
     <div class="col-12 col-md-6">
         <div class="card" style="width: 100%">
-            <div class="card-header">
+            <div class="card-header bg-azul-claro">
                 <h2 class="font-16 font-weight-bold mb-0">Estás comprando</h2>
             </div>
             <div class="card-body">
