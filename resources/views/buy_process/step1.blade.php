@@ -33,7 +33,7 @@
                     <div class="col-md-12 mb-3">
                         <label class="mb-0" for="validationDefaultUsername">¿Qué tipo de token o servicio quieres?</label>
                         <p class="sub-label">Elige el token que desees comprar.</p>
-                        <div class="input-group">
+                        <div class="input-group d-none">
                             {!! Form::select('token', $cryptoCurrencies, 'none', ['v:model' => 'form.token', 'class' => 'form-control', 'id' => 'token', 'aria-describedby' => 'token', 'required']) !!}
 
                             @if ($errors->has("token"))
@@ -42,6 +42,21 @@
                                 </span>
                             @endif
                         </div>
+
+
+                        <div class="dropdown">
+                            <button class="form-control dropdown-toggle button-select-coins" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="{{URL::asset('img/select/coins/crea.png')}}" alt="coin crea"> <span>CREA</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-coins" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#"><img src="{{URL::asset('img/select/coins/crea.png')}}" alt="Coin crea"> CREA</a>
+                                <a class="dropdown-item" href="#"><img src="{{URL::asset('img/select/coins/cgy.png')}}" alt="Coin cgy"> CGY</a>
+                                <a class="dropdown-item" href="#"><img src="{{URL::asset('img/select/coins/cbd.png')}}" alt="Coin cbd"> CBD</a>
+                            </div>
+                        </div>
+
+
+
                     </div>
                 </div>
                 <div class="form-row mt-3">

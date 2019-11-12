@@ -21,8 +21,8 @@
                         <li><h2 class="font-16 font-weight-bold">Método de pago</h2></li>
                         <li><p class="font-12">Tarjeta de crédito/débito</p></li>
                         <li>
-                            <div class="input-group">
-                                @{{ form.payment_method }}
+                            <div class="form-control button-select-payment text-center">
+                                <img src="{{URL::asset('img/select/card/visa.png')}}" alt="coin crea"> <span class="font-12 font-weight-bold">@{{ form.payment_method }}</span>
                             </div>
                         </li>
                     </ul>
@@ -64,29 +64,7 @@
                 </ul>
             </div>
         </div>
-        <div v-if="form.payment_method === 'card'" class="card mt-5" style="width: 100%">
-            <div class="card-header">
-                <h2 class="font-16 font-weight-bold mb-0 text-uppercase">Datos de la tarjeta de crédito/débito</h2>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <button type="submit" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">Pagar con tarjeta</button>
-                </div>
-            </div>
-        </div>
-        <div v-else class="card mt-5" style="width: 100%">
-            <div class="card-header">
-                <h2 class="font-16 font-weight-bold mb-0 text-uppercase">Pago con Google Pay</h2>
-            </div>
-            <div class="card-body">
-                <google-pay
-                        pk_key="{{ env('STRIPE_PUBLIC_KEY') }}"
-                        sk_key="{{ env('STRIPE_SECRET_KEY') }}"
-                        v-bind:amount="form.amount"
-                        v-bind:country="form.country"
-                ></google-pay>
-            </div>
-        </div>
+
     </div>
 </div>
 <div class="row mt-3">
@@ -138,5 +116,8 @@
 <div class="row justify-content-center mt-4 mb-4">
     <div class="col-12 col-md-3 text-center">
         <button v-on:click="backStep(4)" class="font-14 btn btn-secondary text-uppercase font-weight-bold w-100" >Volver</button>
+    </div>
+    <div class="col-12 col-md-3 text-center">
+        <div class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">Comprar</div>
     </div>
 </div>

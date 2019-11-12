@@ -86,3 +86,34 @@
 .bg-azul-claro {
   background-color: #FAFAFF;
 }
+
+.dropdown-coins, .button-select-coins, .button-select-payment {
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}
+.dropdown-coins.show, .dropdown-card.show {
+  width: 100%;
+  text-align: left;
+}
+.button-select-coins::after, .button-select-payment::after {
+  right: 20px;
+  position: absolute;
+  top: 15px;
+}
+.dropdown-card {
+  img {
+    width: auto;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}
+.button-select-payment {
+  img {
+    width: auto;
+  }
+}
