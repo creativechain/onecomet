@@ -7,7 +7,16 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'OneComet') }}</title>
+    <title>{{ config('app.name', 'Onecomet') }} - Compra CREA, CGY y CBD fácilmente con tarjeta de crédito.</title>
+    
+    <meta property="og:title" content="Onecomet - Compra CREA, CGY y CBD fácilmente con tarjeta de crédito." />
+    <meta property="og:description" content="Onecomet es una plataforma segura que facilita la compra de tokens CREA con tarjeta de crédito. Caza un cometa y aumenta tu energía creativa en Creary.net." />
+    <meta property="og:url" content="https://onecomet.co" />
+    <meta property="og:image" content="https://onecomet.co/img/social/onecomet-f.jpg" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_GB" />
+
+    <link rel='shortcut icon' type='image/x-icon' href='https://onecomet.co/img/social/favicon-onecomet.ico' />
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
