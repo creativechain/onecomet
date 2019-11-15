@@ -6,7 +6,7 @@
             <div class="col-12 text-center mt-5">
                 <img src="{{ asset('img/congratulations.png') }}" alt="" class="img-fluid">
                 <ul class="list-unstyled">
-                    <li class="mt-5"><h1 class="font-36 c-primary font-weight-bold">El pago ha isdo cancelado</h1></li>
+                    <li class="mt-5"><h1 class="font-36 c-primary font-weight-bold">El pago ha sido cancelado</h1></li>
                     <li><p class="mb-0 font-16">Se ha detectado la cancelación del pago.</p></li>
                 </ul>
             </div>

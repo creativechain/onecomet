@@ -1,5 +1,5 @@
 <template>
-    <div id="payment-request-button">
+    <div id="payment-request-button" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">
 
     </div>
 </template>
@@ -23,7 +23,12 @@
 
             let elements = stripe.elements();
             let prButton = elements.create('paymentRequestButton', {
-                paymentRequest: paymentRequest
+                paymentRequest: paymentRequest,
+                style: {
+                    paymentRequestButton: {
+                        type: 'buy'
+                    }
+                }
             });
 
             paymentRequest.canMakePayment()

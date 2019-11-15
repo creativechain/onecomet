@@ -79,6 +79,9 @@ const buyProcess = new Vue({
 
             this.step = --currentStep;
         },
+        onPaymentMethodChange: function (newPm) {
+            this.form.payment_method = newPm;
+        },
         onTokenChange: function (newToken) {
             this.App.fetchPrice(newToken, 'eur')
         }

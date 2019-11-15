@@ -32,11 +32,11 @@
             }
         },
         methods: {
-            selectToken: function (pm, event) {
+            selectPm: function (pm, event) {
                 console.log(pm, event.target);
                 this.selectedPm = pm;
                 this.selectionHtml = event.target.innerHTML;
-
+                this.$emit('pmchange', pm);
             }
         }
     }

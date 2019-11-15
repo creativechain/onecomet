@@ -91,7 +91,7 @@
                                     </span>
                                 @endif
                             </div>--}}
-                            <pm-selector v-bind:pm="['card', 'gpay']">
+                            <pm-selector v-bind:pm="['card', 'gpay']" v-on:pmchange="onPaymentMethodChange">
 
                             </pm-selector>
 {{--                            <div class="dropdown">
