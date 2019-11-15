@@ -83,16 +83,18 @@
                         <div class="col-md-12 mb-3">
                             <label class="mb-0" for="validationDefaultUsername">2. ¿Cómo quieres pagar?</label>
                             <p class="sub-label">A continuación selecciona el método de pago.</p>
-                            <div class="input-group d-none">
+{{--                            <div class="input-group d-none">
                                 {!! Form::select('payment_method', $paymentMethods, 'card', ['v-model' => 'form.payment_method', 'class' => 'form-control', 'id' => 'payment_method', 'aria-describedby' => 'payment_method', 'required']) !!}
                                 @if ($errors->has("payment_method"))
                                     <span class="help-block text-danger">
                                         <strong>{{ $errors->first("payment_method") }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div>--}}
+                            <pm-selector v-bind:pm="['card', 'gpay']">
 
-                            <div class="dropdown">
+                            </pm-selector>
+{{--                            <div class="dropdown">
                                 <button class="form-control dropdown-toggle button-select-payment" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="{{URL::asset('img/select/card/visa.png')}}" alt="coin crea"> <span>Tarjeta crédito / débito</span>
                                 </button>
@@ -101,7 +103,7 @@
                                     <a class="dropdown-item" href="#"><img src="{{URL::asset('img/select/card/g-pay.png')}}" alt="Coin cgy"> Google Pay</a>
                                     <a class="dropdown-item" href="#"><img src="{{URL::asset('img/select/card/apple-pay.png')}}" alt="Coin cbd"> Apple Pay</a>
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>

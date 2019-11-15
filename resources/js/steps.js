@@ -2,6 +2,8 @@
 const Vue = require('vue');
 
 Vue.component('google-pay', require('./components/GooglePayButton.vue').default);
+Vue.component('token-selector', require('./components/TokenSelector.vue').default);
+Vue.component('pm-selector', require('./components/PMSelector.vue').default);
 
 const buyProcess = new Vue({
     el: '#buy-process',
