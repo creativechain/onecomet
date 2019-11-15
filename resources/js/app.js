@@ -11,9 +11,5 @@ let {Application} = require('./required/application');
 
 window.App = new Application();
 (function() {
-    setInterval(function () {
-
-        App.fetchPrice('crea', 'eur');
-
-    }, 5 * 1000);
+    App.fetchPrice('crea', 'eur');
 })();

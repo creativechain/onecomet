@@ -22,7 +22,7 @@
                         <li><p class="font-12">Tarjeta de crédito/débito</p></li>
                         <li>
                             <div class="form-control button-select-payment text-center">
-                                <img src="{{URL::asset('img/select/card/visa.png')}}" alt="coin crea"> <span class="font-12 font-weight-bold">@{{ form.payment_method }}</span>
+                                <img src="{{ asset('img/select/card/visa.png') }}" alt="coin crea"> <span class="font-12 font-weight-bold">@{{ form.payment_method }}</span>
                             </div>
                         </li>
                     </ul>
@@ -57,7 +57,7 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled">
-                    <li><p class="font-14">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} CREA<span class="c-primary float-right">@{{ comissionAmount.toFixed(2).replace('.', ',') }} €</span></p></li>
+                    <li><p class="font-14">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} @{{ lastPrice.currency.toUpperCase() }}<span class="c-primary float-right">@{{ comissionAmount.toFixed(2).replace('.', ',') }} €</span></p></li>
                     <li><p class="font-14">Comisión Onecomet<span class="c-primary float-right">@{{ ocComission.toFixed(2).replace('.', ',') }} €</span></p></li>
                     <li><p class="font-14">Comisión Tarjeta<span class="c-primary float-right">@{{ stripeComission.toFixed(2).replace('.', ',') }} €</span></p></li>
                     <li><p class="font-16">Total<span class="font-weight-bold c-primary float-right">@{{ total.toFixed(2).replace('.', ',') }}€</span></p></li>

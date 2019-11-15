@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\BlockchainPriceUpdater;
 use App\Jobs\CoingeckoPriceUpdater;
 use App\Jobs\ExratesPriceUpdater;
 use App\Jobs\PriceUpdater;
@@ -48,5 +49,6 @@ class UpdatePrice extends Command
         CoingeckoPriceUpdater::dispatch('crea', 'btc')->delay(now()->addSeconds(10));
         CoingeckoPriceUpdater::dispatch('crea', 'usd')->delay(now()->addSeconds(10));
         CoingeckoPriceUpdater::dispatch('crea', 'eur')->delay(now()->addSeconds(10));
+        BlockchainPriceUpdater::dispatch()->delay(now()->addSeconds(10));
     }
 }

@@ -50,10 +50,10 @@
                                     <p class="font-36 font-weight-bold c-primary mb-0">@{{ ("" + form.amount).replace('.', ',') }} <span class="font-16 text-uppercase">eur</span> </p>
                                 </li>
                                 <li class="list-inline-item">
-                                    <img src="{{URL::asset('img/home/simbolo-igual.png')}}" alt="profile Pic" class="img-fluid">
+                                    <img src="{{ asset('img/home/simbolo-igual.png') }}" alt="profile Pic" class="img-fluid">
                                 </li>
                                 <li class="list-inline-item text-right">
-                                    <p class="font-weight-bold font-20 c-primary mb-0">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} CREA</p>
+                                    <p class="font-weight-bold font-20 c-primary mb-0">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} @{{ lastPrice.currency.toUpperCase() }}</p>
                                 </li>
                             </ul>
                         </div>

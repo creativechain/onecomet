@@ -5,7 +5,7 @@
 </div>
 <div class="row align-items-center">
     <div class="col-12 col-md-6">
-        <img src="{{URL::asset('img/home/onecomet-illustracion.png')}}" alt="profile Pic" class="img-fluid">
+        <img src="{{ asset('img/home/onecomet-illustracion.png') }}" alt="profile Pic" class="img-fluid">
     </div>
     <div class="col-12 col-md-6">
         <div class="card p-5" style="width: 100%">
@@ -55,7 +55,8 @@
                             </div>
                         </div>--}}
 
-                        <token-selector v-bind:at="{{ str_replace("\"", "'", json_encode(array_keys($cryptoCurrencies))) }}" data="">
+                        <token-selector v-bind:at="{{ str_replace("\"", "'", json_encode(array_keys($cryptoCurrencies))) }}"
+                                        v-on:tokenchange="onTokenChange">
 
                         </token-selector>
 
@@ -81,7 +82,7 @@
                                 <img src="{{ asset('img/home/simbolo-igual.png') }}" alt="profile Pic" class="img-fluid">
                             </li>
                             <li class="list-inline-item text-right">
-                                <p class="font-weight-bold font-20 c-primary mb-0">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} CREA</p>
+                                <p class="font-weight-bold font-20 c-primary mb-0">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} @{{ lastPrice.currency.toUpperCase() }}</p>
                             </li>
                         </ul>
                     </div>

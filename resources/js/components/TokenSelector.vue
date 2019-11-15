@@ -36,6 +36,7 @@
                 console.log(at, event.target);
                 this.selectedToken = at;
                 this.selectionHtml = event.target.innerHTML;
+                this.$emit('tokenchange', at);
 
             }
         }

@@ -26,7 +26,8 @@ const buyProcess = new Vue({
         },
         lastPrice: window.lastPrice,
         settings: window.settings,
-        fiat: window.fiat
+        fiat: window.fiat,
+        App: null
     },
     computed: {
         formattedAmount: function() {
@@ -78,13 +79,16 @@ const buyProcess = new Vue({
 
             this.step = --currentStep;
         },
-
+        onTokenChange: function (newToken) {
+            this.App.fetchPrice(newToken, 'eur')
+        }
     }
 });
 
 
 setTimeout(function () {
 
+    buyProcess.App = App;
     App.on('price.update', function (currency, counterCurrency, price) {
         buyProcess.lastPrice = price;
     });
