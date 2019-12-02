@@ -21,8 +21,8 @@
                 <div class="col-12 col-md-10">
                     <p class="mt-0 font-12 mb-0">Añade el nombre de usuario de CREA, este nombre funciona como una dirección donde se enviará el saldo que estás comprando. </p>
                     <ul class="list-unstyled line-height-1">
-                        <li><a href="" class="font-10">Saber más sobre la blockchain de CREA.</a></li>
-                        <li><a href="" class="font-10">Crear un @usuario. </a></li>
+                        <li><a href="https://creaproject.io/" target="_blank" class="font-10">Saber más sobre la blockchain de CREA.</a></li>
+                        <li><a href="https://creary.net/welcome" target="_blank" class="font-10">Crear un @usuario. </a></li>
                     </ul>
                 </div>
             </div>
