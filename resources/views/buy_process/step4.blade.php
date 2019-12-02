@@ -121,9 +121,14 @@
         <button type="submit" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">Comprar</button>
     </div>
     <div v-else class="col-12 col-md-3 text-center">
-        <google-pay-button>
+        <google-pay
+                pk_key="{{ env('STRIPE_PUBLIC_KEY') }}"
+                sk_key="{{ env('STRIPE_SECRET_KEY') }}"
+                v-bind:amount="form.amount"
+                v-bind:country="form.country"
+        >
 
-        </google-pay-button>
+        </google-pay>
     </div>
 
 </div>
