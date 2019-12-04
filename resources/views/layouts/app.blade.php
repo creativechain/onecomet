@@ -12,11 +12,11 @@
     <meta property="og:title" content="{{ config('app.name', 'Onecomet') }} - {{ __('web.title') }}" />
     <meta property="og:description" content="{{ __('web.description') }}" />
     <meta property="og:url" content="https://onecomet.co" />
-    <meta property="og:image" content="https://onecomet.co/img/social/onecomet-f.jpg" />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content="{{ asset('img/onecomet-og.jpg') }}" />
+    <meta property="og:locale" content="{{ app()->getLocale() }}" />
     <meta property="og:locale:alternate" content="{{ __('web.locale') }}" />
 
-    <link rel='shortcut icon' type='image/x-icon' href='https://onecomet.co/img/social/favicon-onecomet.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='{{ asset('img/favicon.ico') }}' />
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
