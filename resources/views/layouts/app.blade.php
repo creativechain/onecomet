@@ -7,14 +7,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Onecomet') }} - Compra CREA, CGY y CBD fácilmente con tarjeta de crédito.</title>
+    <title>{{ config('app.name', 'Onecomet') }} - {{ __('web.title') }}</title>
     
-    <meta property="og:title" content="Onecomet - Compra CREA, CGY y CBD fácilmente con tarjeta de crédito." />
-    <meta property="og:description" content="Onecomet es una plataforma segura que facilita la compra de tokens CREA con tarjeta de crédito. Caza un cometa y aumenta tu energía creativa en Creary.net." />
+    <meta property="og:title" content="{{ config('app.name', 'Onecomet') }} - {{ __('web.title') }}" />
+    <meta property="og:description" content="{{ __('web.description') }}" />
     <meta property="og:url" content="https://onecomet.co" />
     <meta property="og:image" content="https://onecomet.co/img/social/onecomet-f.jpg" />
     <meta property="og:locale" content="es_ES" />
-    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="{{ __('web.locale') }}" />
 
     <link rel='shortcut icon' type='image/x-icon' href='https://onecomet.co/img/social/favicon-onecomet.ico' />
 
@@ -49,9 +49,9 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="">Comprar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="">ES</a></li>
-                        <li class="nav-item"><a class="nav-link"  href="">EN</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">{{ __('web.buy') }}</a></li>
+                        <li class="nav-item"><div class="nav-link pointer" id="lang-es">ES</div></li>
+                        <li class="nav-item"><div class="nav-link pointer"  id="lang-en">EN</div></li>
                     </ul>
                 </div>
             </div>
@@ -65,22 +65,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-3">
-                    <p class="titulo-footer font-14 font-weight-bold text-white">Información</p>
+                    <p class="titulo-footer font-14 font-weight-bold text-white">{{ __('web.information') }}</p>
                     <ul class="list-unstyled ul-footer-vertical">
-                        <li><a href="">Precios y comisiones</a></li>
-                        <li><a href="">Términos y Condiciones</a></li>
-                        <li><a href="">Quines somos</a></li>
+                        <li><a href="{{ route('privacy') }}" target="_blank">{{ __('web.privacy_policy') }}</a></li>
+                        <li><a href="{{ route('tos') }}" target="_blank">{{ __('web.tos') }}</a></li>
+                        <li><a href="https://creaproject.io" target="_blank">{{ __('web.who') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-3">
-                    <p class="titulo-footer font-14 font-weight-bold text-white">Contacta</p>
+                    <p class="titulo-footer font-14 font-weight-bold text-white">{{ __('web.contact') }}</p>
                     <ul class="list-unstyled ul-footer-vertical">
-                        <li><a href="">support@onecomet.co</a></li>
-                        <li><a href="">info@onecomet.co</a></li>
+                        <li><a href="mailto:support@onecomet.co">support@onecomet.co</a></li>
+                        <li><a href="mailto:info@onecomet.co">info@onecomet.co</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-3">
-                    <p class="titulo-footer font-14 font-weight-bold text-white">Métodos de pago</p>
+                    <p class="titulo-footer font-14 font-weight-bold text-white">{{ __('web.payment_methods') }}</p>
                     <ul class="list-unstyled list-inline ul-footer-payment">
                         <li class="list-inline-item"><img src="{{URL::asset('img/footer/mastercard.png')}}" alt="mastercard" class="img-fluid"></li>
                         <li class="list-inline-item"><img src="{{URL::asset('img/footer/visa.png')}}" alt="visa" class="img-fluid"></li>
@@ -91,11 +91,13 @@
                         <li class="list-inline-item">
                             <img src="{{URL::asset('img/footer/g-pay.png')}}" alt="google pay" class="img-fluid">
                         </li>
+{{--
                         <li class="list-inline-item"><img src="{{URL::asset('img/footer/apple-pay.png')}}" alt="google pay" class="img-fluid"></li>
+--}}
                     </ul>
                 </div>
                 <div class="col-12 col-md-3">
-                    <p class="titulo-footer font-14 font-weight-bold text-white">Social Networks</p>
+                    <p class="titulo-footer font-14 font-weight-bold text-white">{{ __('web.social_networks') }}</p>
                     <ul class="list-unstyled list-inline ul-footer-social">
                         <li class="list-inline-item"><a href="https://twitter.com/onecometco" target="_blank"><i class="fab fa-twitter"></i></a></li>
                         <li class="list-inline-item">
@@ -111,7 +113,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-12 text-center">
-                    <p class="titulo-footer font-10 text-white mb-0">2019 Algunos derechos reservados Onecomet.co - Creativechain Foundation. G67250124. Santa Caterina 47, 08014, Barcelona, España.</p>
+                    <p class="titulo-footer font-10 text-white mb-0">{{ __('web.rights') }}</p>
                 </div>
             </div>
         </div>

@@ -40,4 +40,13 @@ class HomeController extends Controller
             ->withFiatCurrencies(CurrenciesUtils::getFiatCurrenciesConfig())
             ->withCryptoCurrencies(CurrenciesUtils::getCryptoCurrenciesConfig());
     }
+
+    public function tos() {
+        return view('tos');
+    }
+
+    public function privacy()
+    {
+        return view('privacy');
+    }
 }

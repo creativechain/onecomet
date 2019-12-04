@@ -1,6 +1,6 @@
 <div class="row mt-3 mb-4">
     <div class="col-12 text-center">
-        <h1 class="titulo-seccion font-weight-bold">Comprar CREA nunca fue tan fácil</h1>
+        <h1 class="titulo-seccion font-weight-bold">{{ __('web.step1.title') }}</h1>
     </div>
 </div>
 <div class="row align-items-center">
@@ -12,8 +12,8 @@
             <div class="m-form">
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label class="mb-0" for="validationDefaultUsername">¿Cuánto quieres comprar?</label>
-                        <p class="sub-label">Introduce la cantidad que deseas pagar.</p>
+                        <label class="mb-0" for="validationDefaultUsername">{{ __('web.step1.much_money') }}</label>
+                        <p class="sub-label">{{ __('web.step1.input_money') }}</p>
                         <div class="input-group">
                             {{--<input type="number" class="form-control text-right font-weight-bold" id="validationDefaultUsername" placeholder="100.000" aria-describedby="inputGroupPrepend2" required>--}}
                             {!! Form::number('fiat_amount', $fiat['min_unit'], ['v-model' => 'form.amount', 'class' => 'form-control text-right font-weight-bold', 'id' => 'fiat_amount','placeholder' => $fiat['min_unit'], 'min' => $fiat['min_unit'], 'step' => '0.01', 'aria-describedby' => 'fiat_amount', 'required']) !!}
@@ -31,8 +31,8 @@
                 </div>
                 <div class="form-row mt-3">
                     <div class="col-md-12 mb-3">
-                        <label class="mb-0" for="validationDefaultUsername">¿Qué tipo de token o servicio quieres?</label>
-                        <p class="sub-label">Elige el token que desees comprar.</p>
+                        <label class="mb-0" for="validationDefaultUsername">{{ __('web.step1.what_token') }}</label>
+                        <p class="sub-label">{{ __('web.step1.input_token') }}</p>
 {{--                        <div class="input-group d-none">
                             {!! Form::select('token', $cryptoCurrencies, 'none', ['v:model' => 'form.token', 'class' => 'form-control', 'id' => 'token', 'aria-describedby' => 'token', 'required']) !!}
 
@@ -64,12 +64,12 @@
                 </div>
                 <div class="form-row mt-3">
                     <div class="col-md-12 mb-3">
-                        <a href="" class="font-12">Precios y comisiones</a>
+                        <a href="" class="font-12">{{ __('web.step1.prices_and_fees') }}</a>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-12">
-                        <p class="font-weight-bold text-uppercase font-12 mb-0">importe de la compra</p>
+                        <p class="font-weight-bold text-uppercase font-12 mb-0">{{ __('web.step1.purchase_amount') }}</p>
                     </div>
                 </div>
                 <div class="form-row">
@@ -91,7 +91,7 @@
         </div>
         <div class="row mt-5 ">
             <div class="col-12 text-center">
-                <button v-on:click="nextStep(1)" class="btn btn-primary text-uppercase font-14 font-weight-bold">Comprar</button>
+                <button v-on:click="nextStep(1)" class="btn btn-primary text-uppercase font-14 font-weight-bold">{{ __('web.buy') }}</button>
             </div>
         </div>
     </div>
