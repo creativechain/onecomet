@@ -6,6 +6,7 @@ use App\Payment;
 use App\PaymentMeta;
 use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
@@ -40,6 +41,9 @@ class PurchaseController extends Controller
             case 'succeeded';
                 $payment->status = 'success';
                 $payment->save();
+
+                //Send amount
+                Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => false]);
 
                 return View::make('payments.success')
                     ->withPayment($payment);

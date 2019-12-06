@@ -4,6 +4,7 @@
 namespace App;
 
 
+use App\Utils\NumberUtils;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -19,6 +20,13 @@ class Payment extends Model
     public function getRouteKeyName()
     {
         return 'session_id';
+    }
+
+    /**
+     * @return string
+     */
+    public function formatToSend() {
+        return NumberUtils::format($this->to_send / pow(10, 3), 3) . ' ' . strtoupper($this->crypto);
     }
 
 }
