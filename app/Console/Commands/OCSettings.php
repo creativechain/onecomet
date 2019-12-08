@@ -65,10 +65,17 @@ class OCSettings extends Command
 
         $fiats = explode(',', $afs);
         foreach ($fiats as $f) {
-            $minPaymentFiat = Settings::getMinPayment($f);
-            $mpf = $this->ask("Set Minimum payment for $f fiat. Default", $minPaymentFiat->meta_value);
-            $minPaymentFiat->meta_value = $mpf;
-            $minPaymentFiat->save();
+            $maximumPaymentFiat = Settings::getMinPayment($f);
+            $mpf = $this->ask("Set Minimum payment for $f fiat. Default", $maximumPaymentFiat->meta_value);
+            $maximumPaymentFiat->meta_value = $mpf;
+            $maximumPaymentFiat->save();
+        }
+
+        foreach ($fiats as $f) {
+            $maximumPaymentFiat = Settings::getMaxPayment($f);
+            $mpf = $this->ask("Set Maximum payment for $f fiat. Default", $maximumPaymentFiat->meta_value);
+            $maximumPaymentFiat->meta_value = $mpf;
+            $maximumPaymentFiat->save();
         }
 
         //Fees

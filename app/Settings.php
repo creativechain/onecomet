@@ -79,6 +79,16 @@ class Settings extends Model
      * @param $fiat
      * @return bool|\Illuminate\Database\Eloquent\Builder|Model|mixed|object|null
      */
+    public static function getMaxPayment($fiat) {
+        $fiatConfig = CurrenciesUtils::getCurrencyConfig($fiat);
+        return self::get('payments', "_$fiat" . "MaxAmount", $fiatConfig['min_payment'], true);
+
+    }
+
+    /**
+     * @param $fiat
+     * @return bool|\Illuminate\Database\Eloquent\Builder|Model|mixed|object|null
+     */
     public static function getOCFeeType() {
         return self::get('fees', "_feeType", 'variable', true);
     }
