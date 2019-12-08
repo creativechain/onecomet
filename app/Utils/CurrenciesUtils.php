@@ -4,6 +4,8 @@
 namespace App\Utils;
 
 
+use App\Settings;
+
 class CurrenciesUtils
 {
 
@@ -38,7 +40,10 @@ class CurrenciesUtils
      */
     public static function getCurrencyConfig($currency) {
         $config = config("currencies.$currency");
-        $config['min_unit'] = $config['min_payment'] / (pow(10, $config['precision']));
+        $min = Settings::get('payment', $currency.'MinAmount', $config['min_payment']);
+        $max = Settings::get('payment', $currency.'MaxAmount', $config['max_payment']);
+        $config['min_unit'] = $min / (pow(10, $config['precision']));
+        $config['max_unit'] = $max / (pow(10, $config['precision']));
         $config['name'] = $currency;
         return $config;
     }

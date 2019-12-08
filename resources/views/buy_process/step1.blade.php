@@ -16,7 +16,7 @@
                         <p class="sub-label">{{ __('web.step1.input_money') }}</p>
                         <div class="input-group">
                             {{--<input type="number" class="form-control text-right font-weight-bold" id="validationDefaultUsername" placeholder="100.000" aria-describedby="inputGroupPrepend2" required>--}}
-                            {!! Form::number('fiat_amount', $fiat['min_unit'], ['v-model' => 'form.amount', 'class' => 'form-control text-right font-weight-bold', 'id' => 'fiat_amount','placeholder' => $fiat['min_unit'], 'min' => $fiat['min_unit'], 'step' => '0.01', 'aria-describedby' => 'fiat_amount', 'required']) !!}
+                            {!! Form::number('fiat_amount', $fiat['min_unit'], ['v-model' => 'form.amount', 'class' => 'form-control text-right font-weight-bold', 'id' => 'fiat_amount','placeholder' => $fiat['min_unit'], 'min' => $fiat['min_unit'], 'max' => $fiat['max_unit'], 'step' => '0.01', 'aria-describedby' => 'fiat_amount', 'required']) !!}
                             {!! Form::hidden('fiat_currency', $fiat['name']) !!}
                             <div class="input-group-prepend">
                                 <span class="input-group-text input-eur font-weight-bold" id="inputGroupPrepend2">EUR</span>

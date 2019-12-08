@@ -16,11 +16,13 @@ return [
     'usd' => [
         'symbol' => '$',
         'precision' => 2,
-        'min_payment' => 2500
+        'min_payment' => 2500,
+        'max_payment' => 10000,
     ],
     'eur' => [
         'symbol' => '€',
         'precision' => 2,
-        'min_payment' => 2500
+        'min_payment' => 2500,
+        'max_payment' => 10000
     ]
 ];
