@@ -23,7 +23,7 @@ class CurrenciesUtils
         return explode(',', env('OC_AVAILABLE_CURRENCIES'));
     }
 
-    private static function getCurrenciesSymbols($currencies) {
+    public static function getCurrenciesSymbols($currencies) {
         $cConfig = [];
 
         foreach ($currencies as $c) {

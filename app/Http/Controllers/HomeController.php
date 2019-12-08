@@ -38,7 +38,7 @@ class HomeController extends Controller
             ->withSettings($settings)
             ->withPaymentMethods(PaymentUtils::getTranslatedAvailableMethods())
             ->withFiatCurrencies(CurrenciesUtils::getFiatCurrenciesConfig())
-            ->withCryptoCurrencies(CurrenciesUtils::getCryptoCurrenciesConfig());
+            ->withCryptoCurrencies(Settings::getAvailableTokenSymbols());
     }
 
     public function tos() {

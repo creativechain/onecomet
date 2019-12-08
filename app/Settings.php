@@ -59,6 +59,16 @@ class Settings extends Model
     }
 
     /**
+     * @return array
+     */
+    public static function getAvailableTokenSymbols() {
+        $tokens =  self::get('payments', '_availableToken', env('OC_AVAILABLE_CURRENCIES'), true);
+        $tokens = explode(',', $tokens);
+        return CurrenciesUtils::getCurrenciesSymbols($tokens);
+    }
+
+
+    /**
      * @return bool|\Illuminate\Database\Eloquent\Builder|Model|mixed|object|null
      */
     public static function getAvailableMethods() {
