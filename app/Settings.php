@@ -62,7 +62,7 @@ class Settings extends Model
      * @return array
      */
     public static function getAvailableTokenSymbols() {
-        $tokens =  self::get('payments', '_availableToken', env('OC_AVAILABLE_CURRENCIES'), true);
+        $tokens =  self::get('payments', '_availableToken', env('OC_AVAILABLE_CURRENCIES'));
         $tokens = explode(',', $tokens);
         return CurrenciesUtils::getCurrenciesSymbols($tokens);
     }
