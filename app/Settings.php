@@ -81,7 +81,7 @@ class Settings extends Model
      */
     public static function getMaxPayment($fiat) {
         $fiatConfig = CurrenciesUtils::getCurrencyConfig($fiat);
-        return self::get('payments', "_$fiat" . "MaxAmount", $fiatConfig['min_payment'], true);
+        return self::get('payments', "_$fiat" . "MaxAmount", $fiatConfig['max_payment'], true);
 
     }
 
