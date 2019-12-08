@@ -19,7 +19,8 @@ class PaymentUtils
      * @return array
      */
     public static function getAvailableMethods() {
-        return explode(',', env('OC_AVAILABLE_PAYMENT_METHODS'));
+        $methods = Settings::getAvailableMethods();
+        return explode(',', $methods->meta_value);
     }
 
     /**
