@@ -78,7 +78,7 @@
                                 {{--<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" >--}}
                                 {!! Form::checkbox('check_tos', 'true', false, ['class' => 'form-check-input', 'id' => 'check_tos', 'aria-describedby' => 'check_tos', 'required']) !!}
                                 <label class="form-check-label font-12" for="check_tos">
-                                    {{ __('web.step4.accept_tos') }}
+                                    {!!  __('web.step4.accept_tos') !!}
                                 </label>
                                 <span v-if="step === 4 && validation.error && validation.el === 'check_tos'" class="help-block text-danger">
                                     <strong>@{{ validation.error }}</strong>

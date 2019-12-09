@@ -69,7 +69,7 @@ return [
         'onecomet_fee' => 'Onecomet Fee',
         'card_fee' => 'Card Fee',
         'total' => 'Total',
-        'accept_tos' => 'I accept the general conditions of the service and the privacy policy.',
+        'accept_tos' => 'I accept the <a href="/tos">General Conditions of the Service</a> and the <a href="/privacy">Privacy Policy</a>.',
         'affirm_i_user' => 'I affirm that the purse or user address that I use in this operation is my property and not of a third party.',
     ],
     'success_process' => [

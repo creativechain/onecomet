@@ -68,7 +68,7 @@ return [
         'onecomet_fee' => 'Comisión Onecomet',
         'card_fee' => 'Comisión Tarjeta',
         'total' => 'Total',
-        'accept_tos' => 'Acepto las condiciones generales del servicio y la política de privacidad.',
+        'accept_tos' => 'Acepto las <a href="/tos">Condiciones Generales del servicio</a> y la <a href="/privacy">Política de Privacidad</a>.',
         'affirm_i_user' => 'Afirmo que el monedero o dirección de usuario que utilizo en esta operación es de mi propiedad y no de un tercero.',
     ],
     'success_process' => [
