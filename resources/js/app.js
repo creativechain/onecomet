@@ -6,27 +6,37 @@
 
 require('./required/bootstrap');
 
-window.Vue = require('vue');
+let {Application} = require('./required/application');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+let cookies = require('js-cookie');
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+window.App = new Application();
+window.Cookies = cookies;
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+(function() {
+    App.fetchPrice('crea', 'eur');
 
-const app = new Vue({
-    el: '#app',
-});
+    $(document).ready(function () {
+
+        let setLang = function (lang) {
+            Cookies.set('lang', lang);
+            location.reload();
+        };
+
+        $('#lang-en').click(function () {
+            setLang('en');
+        });
+
+        $('#lang-es').click(function () {
+            setLang('es');
+        });
+
+        let lang = Cookies.get('lang');
+        if (!lang) {
+            setLang(navigator.language.split('-')[0])
+        }
+
+    })
+
+})();

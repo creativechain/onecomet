@@ -1,65 +1,41 @@
 @extends('layouts.app')
 
+@section('header-scripts')
+    {{--<script src="https://js.stripe.com/v3/"></script>--}}
+@endsection
+
 @section('content')
-<div class="container">
+    <script>
+        //JS Global CONSTANTS
+        window.fiat = @json($fiat);
+        window.lastPrice = @json($lastPrice);
+        window.lastPrice.tokenToFiat = function (amount) {
+            return amount * (this.price / Math.pow(10, this.counter_precision));
+        };
+        window.lastPrice.fiatToToken = function (amount) {
+            return (amount * (1 / (this.price / Math.pow(10, this.counter_precision)))).toFixed(this.precision);
+        };
 
-    {!! Form::open(['route' => 'purchase.buy', 'method' => 'POST']) !!}
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('crea_user', 'Enviar a', ['class' => 'awesome']) !!}
-        {!! Form::input('text', 'crea_user', '', ['id' => 'crea_user', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-
-        @if ($errors->has('crea_user'))
-            <span class="help-block text-danger">
-                    <strong>{{ $errors->first('crea_user') }}</strong>
-                </span>
-        @endif
+        window.settings = @json($settings);
+    </script>
+    <div v-cloak id="buy-process" class="container">
+        {!! Form::open(['route' => 'purchase.buy', 'id' => 'buyForm', 'method' => 'POST']) !!}
+            <div v-show="step === 1">
+                @include('buy_process.step1')
+            </div>
+            <div v-show="step === 2" class="p-address">
+                @include('buy_process.step2')
+            </div>
+            <div v-show="step === 3" class="p-address">
+                @include('buy_process.step3')
+            </div>
+            <div v-show="step === 4" class="p-summary">
+                @include('buy_process.step4')
+            </div>
+        {!! Form::close() !!}
     </div>
+@endsection
 
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-            {!! Form::label('payment_method', 'Método de pago', ['class' => 'awesome']) !!}
-            {!! Form::select('payment_method', ['card' => 'Tarjeta', 'bank' => 'Cuenta bancaria'], '', ['id' => 'payment_method', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-
-            @if ($errors->has('payment_method'))
-                <span class="help-block text-danger">
-                    <strong>{{ $errors->first('payment_method') }}</strong>
-                </span>
-            @endif
-    </div>
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('crypto_currency', 'Crypto a comprar', ['class' => 'awesome']) !!}
-        {!! Form::select('crypto_currency', ['crea' => 'CREA', 'cbd' => 'CBD'], '', ['id' => 'crypto_currency', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-        @if ($errors->has('crypto_currency'))
-            <span class="help-block text-danger">
-                <strong>{{ $errors->first('crypto_currency') }}</strong>
-            </span>
-        @endif
-    </div>
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('fiat_currency', 'Moneda de pago', ['class' => 'awesome']) !!}
-        {!! Form::select('fiat_currency', ['eur' => 'Euro', 'usd' => 'Dollar'], '', ['id' => 'fiat_currency', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-        @if ($errors->has('fiat_currency'))
-            <span class="help-block text-danger">
-                <strong>{{ $errors->first('fiat_currency') }}</strong>
-            </span>
-        @endif
-    </div>
-
-    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-        {!! Form::label('fiat_amount', 'Cantidad a comprar', ['class' => 'awesome']) !!}
-        {!! Form::input('number', 'fiat_amount', 10, ['min' => 10, 'step' => 0.01, 'id' => 'fiat_amount', 'class' => 'form-control', 'aria-describedby' => 'formHelp', 'required']) !!}
-        @if ($errors->has('fiat_amount'))
-            <span class="help-block text-danger">
-                <strong>{{ $errors->first('fiat_amount') }}</strong>
-            </span>
-        @endif
-    </div>
-
-    {!! Form::input('hidden','price', (rand(2, 100) / 100)) !!}
-
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
-    {!! Form::close() !!}
-</div>
+@section('footer-scripts')
+    <script src="{{ asset('js/steps.js') }}"></script>
 @endsection

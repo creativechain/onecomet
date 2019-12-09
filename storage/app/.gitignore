@@ -1,3 +1,5 @@
 *
-!public/
+!lang
+!lang/*
+!public
 !.gitignore

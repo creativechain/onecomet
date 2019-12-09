@@ -1,13 +1,48 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700&display=swap');
 
-// Variables
-@import 'imported/variables';
+
+
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Variables
+@import 'imported/fonts';
+@import 'imported/colors';
+@import 'imported/botones';
+
+@import 'imported/modulos';
+
+@import 'imported/custom';
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: $white;
+    color: $text-color-dark;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+a {
+    color: $c-primary;
+}
+a:hover {
+    color: $c-primary;
+    text-decoration: underline;
+}
+
+.titulo-seccion {
+    font-size: $font-25;
+    color: $c-title-blue-dark;
+}
+
+
+.border-bottom {
+ border-bottom: 1px solid $c-primary;
 }

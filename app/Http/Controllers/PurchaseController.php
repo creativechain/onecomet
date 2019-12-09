@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
+use App\PaymentMeta;
+use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
@@ -15,89 +18,65 @@ class PurchaseController extends Controller
     //
 
     public function index(Request $request) {
-        return View::make('home');
+        return View::make('test');
     }
 
     public function purchaseBuy(Request $request) {
-        $request->validate([
-            'crea_user' => 'required|string',
-            'payment_method' => 'required|string|in:card,bank',
-            'crypto_currency' => 'required|string|in:crea,cbd',
-            'fiat_currency' => 'required|string|in:eur,usd',
-            'fiat_amount' => 'required|numeric|min:10',
-            'price' => 'required|numeric'
-        ]);
+        return PaymentUtils::validatePayment($request);
+    }
 
-        $crypto = $request->get('crypto_currency');
-        $price = $request->get('price');
-        $fiatAmount = $request->get('fiat_amount');
+    public function processPayment($sessionId) {
 
-        $cryptoAmountToSend = number_format($fiatAmount / $price, 3, '.', '');
-        //dd($crypto, $price, $fiatAmount, $cryptoAmountToSend);
-        $paymentData = [
-            'name' => __('crypto.' . $crypto . '.name', [], 'en'),
-            'description' => __('crypto.' . $crypto . '.description', [], 'en'),
-            'currency' => $request->get('fiat_currency'),
-            'amount' => intval($request->get('fiat_amount') * 100),
-            'quantity' => 1,
-            'images' => ['https://creary.net/img/logo_creary_beta.svg']
-        ];
+        //Check if user was paid
+        $session = Session::retrieve($sessionId);
+        $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
+        $pmSession = PaymentMeta::query()
+            ->where('meta_value', $sessionId)
+            ->first();
 
-        //dd($paymentData);
-        $session = Session::create([
-            'payment_method_types' => [$request->get('payment_method')],
-            'line_items' => [$paymentData],
-            'success_url' => env('APP_URL') . '/payments/success/{CHECKOUT_SESSION_ID}',
-            'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
-        ]);
+        $payment = Payment::query()->find($pmSession->payment_id);
 
-        $payment = new Payment();
-        $payment->session_id = $session->id;
-        $payment->method = $request->get('payment_method');
-        $payment->crypto = $request->get('crypto_currency');
-        $payment->fiat = $request->get('fiat_currency');
-        $payment->amount = intval($fiatAmount * 100);
-        $payment->price = intval($request->get('price') * 100);
-        $payment->to_send = intval($cryptoAmountToSend * 1000);
-        $payment->send_to = $request->get('crea_user');
+        //If payment isn't in succeeded status, return to payment screen
+        switch ($paymentIntent->status) {
+            case 'succeeded';
+                $payment->status = 'success';
+                $payment->save();
+
+                //Send amount
+                Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => false]);
+
+                return View::make('payments.success')
+                    ->withPayment($payment);
+            case 'canceled':
+                return View::make('payments.rejected')
+                    ->withPayment($payment);
+            default:
+                return View::make('purchase')
+                    ->withStripeSession($session);
+        }
+    }
+
+    public function cancelPayment(Request $request, $sessionId) {
+        //Cancel payment
+        $paymentMeta = PaymentMeta::query()
+            ->where('meta_value', $sessionId)
+            ->first();
+        $session = Session::retrieve($sessionId);
+        $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
+
+        //Only cancel this payment if it is not in 'succeeded' or 'canceled' status
+        if ($paymentIntent->status === 'succeeded' || $paymentIntent->status === 'canceled') {
+            return View::make('payments.rejected');
+        }
+
+        $paymentIntent->cancel();
+
+        $payment = Payment::query()->find($paymentMeta->payment_id);
+        $payment->status = 'canceled';
         $payment->save();
 
-        //dd($session);
-
-        return View::make('purchase')
-            ->withStripeSession($session);
-    }
-
-    public function successPayment(Payment $payment) {
-
-        //dd($payment);
-        $session = Session::retrieve($payment->session_id);
-        $setUpIntent = SetupIntent::retrieve($session->setup_intent);
-        $paymentMethod = PaymentMethod::retrieve($setUpIntent->payment_method);
-
-        if ($payment->status === 'created') {
-            $payment->status = 'success';
-            $payment->save();
-
-            return View::make('payments.success')
-                ->withPayment($payment);
-        } else {
-            return View::make('payments.rejected');
-        }
-
-    }
-
-    public function errorPayment(Request $request, Payment $payment) {
-
-        if ($payment->status === 'created') {
-            $payment->status = 'error';
-            $payment->save();
-
-            return View::make('payments.error')
-                ->withPayment($payment);
-        } else {
-            return View::make('payments.rejected');
-        }
+        return View::make('payments.canceled')
+            ->withPayment($payment);
 
     }
 }

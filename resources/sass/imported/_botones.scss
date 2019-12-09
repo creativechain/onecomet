@@ -1,0 +1,25 @@
+// Botones
+.btn {
+  border-radius: 20px;
+  padding: 8px 50px;
+}
+.btn-primary {
+  color: #fff !important;
+  background-color: $c-primary;
+  border-color: $c-primary;
+}
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: $c-bg-legal;
+  border-color: $c-bg-legal;
+}
+.btn-secondary {
+   color: #fff !important;
+   background-color: $bg-secondary-botton;
+   border-color: $bg-secondary-botton;
+ }
+.btn-secondary:hover {
+  color: #fff !important;
+  background-color: $bg-hover-secondary;
+  border-color: $bg-hover-secondary;
+}
