@@ -45,7 +45,7 @@ class PurchaseController extends Controller
 
                 //Send amount
                 Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => false]);
-
+            case 'paid':
                 return View::make('payments.success')
                     ->withPayment($payment);
             case 'canceled':
