@@ -37,11 +37,13 @@
                 selectedPm:  Object.keys(this.pm)[0],
             }
         },
+        updated: function() {
+            this.selectPm(this.selectedPm, this.pm[this.selectedPm])
+        },
         methods: {
             selectPm: function (pmi, trans, event) {
                 console.log(pmi, trans);
                 this.selectedPm = pmi;
-                this.selectionHtml = event.target.innerHTML;
                 this.$emit('pmchange', pmi, this.pm[pmi]);
             }
         }
