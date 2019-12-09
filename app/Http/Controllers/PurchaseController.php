@@ -8,6 +8,7 @@ use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\PaymentMethod;

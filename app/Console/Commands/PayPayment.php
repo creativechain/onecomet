@@ -74,11 +74,10 @@ class PayPayment extends Command
 
             $error = false;
             $output = [];
-            exec("crea-tx transfer $from $to \"$toSend\"  \"\" $wif --node https://nodes.creary.net", $output,  $error);
+            exec("crea-tx transfer $from $to \"$toSend\" $payment->identifier $wif --node https://nodes.creary.net", $output,  $error);
 
             if (!$error) {
                 $output = implode(" ", $output);
-                $this->info($output);
                 $txData = json_decode($output, true);
                 //dd($txData);
 

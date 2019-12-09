@@ -7,6 +7,7 @@ use App\Settings;
 use App\Utils\CurrenciesUtils;
 use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
