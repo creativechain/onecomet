@@ -40,8 +40,8 @@ class CurrenciesUtils
      */
     public static function getCurrencyConfig($currency) {
         $config = config("currencies.$currency");
-        $min = Settings::get('payment', "_$currency".'MinAmount', $config['min_payment']);
-        $max = Settings::get('payment', "_$currency".'MaxAmount', $config['max_payment']);
+        $min = Settings::get('payments', "_$currency".'MinAmount', $config['min_payment']);
+        $max = Settings::get('payments', "_$currency".'MaxAmount', $config['max_payment']);
         $config['min_unit'] = $min / (pow(10, $config['precision']));
         $config['max_unit'] = $max / (pow(10, $config['precision']));
         $config['name'] = $currency;
