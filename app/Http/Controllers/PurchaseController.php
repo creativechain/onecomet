@@ -37,6 +37,15 @@ class PurchaseController extends Controller
 
         $payment = Payment::query()->find($pmSession->payment_id);
 
+        switch ($payment->status) {
+            case 'paid':
+                return View::make('payments.success')
+                    ->withPayment($payment);
+            case 'canceled':
+                return View::make('payments.rejected')
+                    ->withPayment($payment);
+        }
+
         //If payment isn't in succeeded status, return to payment screen
         switch ($paymentIntent->status) {
             case 'succeeded';
@@ -45,10 +54,12 @@ class PurchaseController extends Controller
 
                 //Send amount
                 Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => false]);
-            case 'paid':
+
                 return View::make('payments.success')
                     ->withPayment($payment);
             case 'canceled':
+                $payment->status = 'canceled';
+                $payment->save();
                 return View::make('payments.rejected')
                     ->withPayment($payment);
             default:
