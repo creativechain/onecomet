@@ -13,7 +13,7 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('oc_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
             $table->string('meta_key');
@@ -29,6 +29,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('oc_settings');
     }
 }
