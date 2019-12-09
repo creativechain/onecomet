@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="form-row mt-3">
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-12 mb-3" data="{{ json_encode($paymentMethods) }}">
                             <label class="mb-0" for="validationDefaultUsername">2. {{ __('web.step2.how_want_pay') }}</label>
                             <p class="sub-label">{{ __('web.step2.how_want_pay_description') }}</p>
 {{--                            <div class="input-group d-none">
@@ -89,7 +89,7 @@
                                     </span>
                                 @endif
                             </div>--}}
-                            <pm-selector pm="{{ json_encode($paymentMethods) }}" v-on:pmchange="onPaymentMethodChange">
+                            <pm-selector v-bind:pm="{{ json_encode($paymentMethods) }}" v-on:pmchange="onPaymentMethodChange">
 
                             </pm-selector>
 {{--                            <div class="dropdown">

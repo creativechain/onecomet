@@ -36,7 +36,7 @@ class HomeController extends Controller
             ->withLastPrice($lastPrice)
             ->withFiat($eurConfig)
             ->withSettings($settings)
-            ->withPaymentMethods(PaymentUtils::getAvailableMethods())
+            ->withPaymentMethods(PaymentUtils::getTranslatedAvailableMethods())
             ->withFiatCurrencies(CurrenciesUtils::getFiatCurrenciesConfig())
             ->withCryptoCurrencies(Settings::getAvailableTokenSymbols());
     }

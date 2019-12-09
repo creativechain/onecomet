@@ -14,6 +14,7 @@ const buyProcess = new Vue({
             token: 'crea',
             username: '',
             payment_method: 'card',
+            payment_method_trans: '',
             email: '',
             phone: '',
             name: '',
@@ -112,8 +113,6 @@ const buyProcess = new Vue({
                             break;
                         }
                     }
-
-
             }
         },
         nextStep: function (currentStep) {
@@ -129,8 +128,10 @@ const buyProcess = new Vue({
             this.validation.el = null;
             this.step = --currentStep;
         },
-        onPaymentMethodChange: function (newPm) {
+        onPaymentMethodChange: function (newPm, trans) {
+            console.log('onpm', newPm, trans);
             this.form.payment_method = newPm;
+            this.form.payment_method_trans = trans;
         },
         onTokenChange: function (newToken) {
             this.App.fetchPrice(newToken, 'eur')

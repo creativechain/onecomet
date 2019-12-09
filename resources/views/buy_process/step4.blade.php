@@ -19,10 +19,10 @@
                 <div class="col-12">
                     <ul class="list-unstyled">
                         <li><h2 class="font-16 font-weight-bold">{{ __('web.step4.payment_method') }}</h2></li>
-                        <li><p class="font-12">{{ __('web.step4.payment_method_description') }}</p></li>
+                        {{--<li><p class="font-12">{{ __('web.step4.payment_method_description') }}</p></li>--}}
                         <li>
                             <div class="form-control button-select-payment text-center">
-                                <img src="{{ asset('img/select/card/visa.png') }}" alt="coin crea"> <span class="font-12 font-weight-bold">@{{ form.payment_method }}</span>
+                                <img src="{{ asset('img/select/card/visa.png') }}" alt="coin crea"> <span class="font-12 font-weight-bold">@{{ form.payment_method_trans }}</span>
                             </div>
                         </li>
                     </ul>
