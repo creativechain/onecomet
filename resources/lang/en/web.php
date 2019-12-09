@@ -51,6 +51,11 @@ return [
         'state_input' => 'State or Province',
         'country_input' => 'Country',
         'birth_date_input' => 'Birth date',
+        'name' => 'Name',
+        'surname' => 'Surname',
+        'address' => 'Address',
+        'state' => 'State/Province',
+        'country' => 'Country',
     ],
     'step4' => [
         'title' => 'Please review the data and confirm that they are correct.',

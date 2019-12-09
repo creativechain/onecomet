@@ -19,7 +19,7 @@
         window.settings = @json($settings);
     </script>
     <div v-cloak id="buy-process" class="container">
-        {!! Form::open(['route' => 'purchase.buy', 'method' => 'POST']) !!}
+        {!! Form::open(['route' => 'purchase.buy', 'id' => 'buyForm', 'method' => 'POST']) !!}
             <div v-show="step === 1">
                 @include('buy_process.step1')
             </div>

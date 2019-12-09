@@ -24,6 +24,11 @@ const buyProcess = new Vue({
             state: '',
             country: '',
         },
+        validation: {
+            valid: false,
+            error: null,
+            el: null,
+        },
         lastPrice: window.lastPrice,
         settings: window.settings,
         fiat: window.fiat,
@@ -63,20 +68,65 @@ const buyProcess = new Vue({
         },
         total: function () {
             return parseFloat(this.form.amount) + this.stripeComission;
-        }
+        },
     },
     methods: {
-        nextStep: function (currentStep) {
+        validate: function(currentStep) {
+            console.log('Validating...');
+            let  ids;
             switch (currentStep) {
                 case 1:
-                    this.step = 2;
+                    let amountEl = document.getElementById('fiat_amount');
+                    this.validation.valid = amountEl.validity.valid;
+                    this.validation.error = amountEl.validationMessage;
                     break;
-            }
+                case 2:
+                    let username = document.getElementById('crea_username');
+                    this.validation.valid = username.validity.valid;
+                    this.validation.error = username.validationMessage;
+                    break;
+                case 3:
+                    ids = ['email', 'address', 'phone', 'zip_code', 'name', 'state', 'surname', 'country', 'birth_date'];
 
-            this.step = ++currentStep;
+                    for (let x = 0; x < ids.length; x++) {
+                        let id = ids[x];
+                        let el = document.getElementById(id);
+                        if (!el.validity.valid) {
+                            this.validation.valid = el.validity.valid;
+                            this.validation.error = el.validationMessage;
+                            this.validation.el = id;
+                            break;
+                        }
+                    }
+                    break;
+                case 4:
+                    ids = ['check_tos', 'check_username'];
+
+                    for (let x = 0; x < ids.length; x++) {
+                        let id = ids[x];
+                        let el = document.getElementById(id);
+                        if (!el.validity.valid) {
+                            this.validation.valid = el.validity.valid;
+                            this.validation.error = el.validationMessage;
+                            this.validation.el = id;
+                            break;
+                        }
+                    }
+
+
+            }
+        },
+        nextStep: function (currentStep) {
+            this.validate(currentStep);
+
+            if (this.validation.valid && !this.validation.error) {
+                this.step = ++currentStep;
+            }
         },
         backStep: function (currentStep) {
-
+            this.validation.valid = true;
+            this.validation.error = null;
+            this.validation.el = null;
             this.step = --currentStep;
         },
         onPaymentMethodChange: function (newPm) {
@@ -84,6 +134,19 @@ const buyProcess = new Vue({
         },
         onTokenChange: function (newToken) {
             this.App.fetchPrice(newToken, 'eur')
+        },
+        submitForm: function () {
+            this.validate(4);
+            if (this.validation.valid && !this.validation.error) {
+                if (this.form.payment_method === 'card') {
+                    $('#buyForm').submit();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 });

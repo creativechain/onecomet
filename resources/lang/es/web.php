@@ -50,6 +50,11 @@ return [
         'state_input' => 'Estado o Provincia',
         'country_input' => 'País',
         'birth_date_input' => 'Fecha de nacimiento',
+        'name' => 'Nombre',
+        'surname' => 'Apellidos',
+        'address' => 'Dirección',
+        'state' => 'Estado o Provincia',
+        'country' => 'País',
     ],
     'step4' => [
         'title' => 'Por favor revisa los datos y confírma que son correctos',

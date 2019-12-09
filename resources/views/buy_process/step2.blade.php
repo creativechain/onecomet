@@ -69,12 +69,10 @@
                                     <div class="input-group-text">@</div>
                                 </div>
                                 {{--<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">--}}
-                                {!! Form::text('crea_username', '', ['v-model' => 'form.username', 'class' => 'form-control', 'id' => 'crea_username','placeholder' => 'Username', 'aria-describedby' => 'crea_username', 'required']) !!}
-                                @if ($errors->has("crea_username"))
-                                    <span class="help-block text-danger">
-                                        <strong>{{ $errors->first("crea_username") }}</strong>
-                                    </span>
-                                @endif
+                                {!! Form::text('crea_username', '', ['v-model' => 'form.username', 'class' => 'form-control', 'id' => 'crea_username','placeholder' => 'Username', 'aria-describedby' => 'crea_username', 'required', 'pattern' => '.{3,}']) !!}
+                                <span v-if="step === 2 && validation.error" class="help-block text-danger">
+                                    <strong>@{{ validation.error }}</strong>
+                                </span>
 
                             </div>
                         </div>

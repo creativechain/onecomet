@@ -80,11 +80,9 @@
                                 <label class="form-check-label font-12" for="check_tos">
                                     {{ __('web.step4.accept_tos') }}
                                 </label>
-                                @if ($errors->has("check_tos"))
-                                    <span class="help-block text-danger">
-                                        <strong>{{ $errors->first("check_tos") }}</strong>
-                                    </span>
-                                @endif
+                                <span v-if="step === 4 && validation.error && validation.el === 'check_tos'" class="help-block text-danger">
+                                    <strong>@{{ validation.error }}</strong>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -100,11 +98,9 @@
                                 <label class="form-check-label font-12" for="check_username">
                                     {{ __('web.step4.affirm_i_user') }}
                                 </label>
-                                @if ($errors->has("check_username"))
-                                    <span class="help-block text-danger">
-                                        <strong>{{ $errors->first("check_username") }}</strong>
-                                    </span>
-                                @endif
+                                <span v-if="step === 4 && validation.error && validation.el === 'check_username'" class="help-block text-danger">
+                                    <strong>@{{ validation.error }}</strong>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -118,9 +114,9 @@
         <button v-on:click="backStep(4)" class="font-14 btn btn-secondary text-uppercase font-weight-bold w-100" >{{ __('web.back') }}</button>
     </div>
     <div v-if="form.payment_method === 'card'" class="col-12 col-md-3 text-center">
-        <button type="submit" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">{{ __('web.buy') }}</button>
+        <button type="submit" v-on:click="submitForm()" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100">{{ __('web.buy') }}</button>
     </div>
-    <div v-else class="col-12 col-md-3 text-center">
+    <div v-else-if="submitForm()" class="col-12 col-md-3 text-center">
         <google-pay
                 pk_key="{{ env('STRIPE_PUBLIC_KEY') }}"
                 sk_key="{{ env('STRIPE_SECRET_KEY') }}"
