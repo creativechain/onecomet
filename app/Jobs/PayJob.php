@@ -44,18 +44,20 @@ class PayJob implements ShouldQueue
             $from = env('CREA_SENDER_USER');
             $to = $this->payment->send_to;
             $wif = env('CREA_SENDER_KEY');
+            $identifier = $this->payment->identifier;
 
             $error = false;
             $output = [];
-            exec("crea-tx transfer $from $to \"$toSend\" $this->payment->identifier $wif --node https://nodes.creary.net", $output,  $error);
+            exec("crea-tx transfer $from $to \"$toSend\" $identifier $wif --node https://nodes.creary.net", $output,  $error);
 
             if (!$error) {
-                $output = implode(" ", $output);
-                $txData = json_decode($output, true);
-                //dd($txData);
-
                 $this->payment->status = 'paid';
                 $this->payment->save();
+
+                $output = implode(" ", $output);
+                $txData = json_decode($output, true);
+                info("Payment sent! $toSend to @$to: Result: $output");
+                //dd($txData);
 
                 $pTx = new PaymentMeta();
                 $pTx->payment_id = $this->payment->id;
@@ -69,7 +71,7 @@ class PayJob implements ShouldQueue
                 $pBlock->meta_value = $txData['block_num'];
                 $pBlock->save();
 
-                info("Payment sent! $toSend to @$to: Result: $output");
+
             } else {
                 error_log("Error sending amount");
             }
