@@ -39,10 +39,11 @@ class PayPayment extends Command
      */
     public function handle()
     {
+        $paymentId = $this->argument('paymentId');
         /**
          * @var Payment $payment
          */
-        $payment = Payment::query()->find($this->argument('paymentId'));
+        $payment = Payment::query()->find($paymentId);
 
         $toSend = $payment->formatToSend();
         $from = env('CREA_SENDER_USER');
@@ -92,14 +93,17 @@ class PayPayment extends Command
                 $pBlock->save();
 
                 $this->info("Payment sent! $toSend to @$to: Result: $output");
+                info("Payment sent! $toSend to @$to: Result: $output");
                 return true;
             } else {
+                error_log("Error sending amount");
                 $this->error("Error sending amount");
                 return $output;
             }
 
 
         } else {
+            error_log("Payment not found: $paymentId");
             $this->error('Payment not found');
             return false;
         }
