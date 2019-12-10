@@ -55,7 +55,7 @@ class PurchaseController extends Controller
                 $payment->save();
 
                 //Send amount
-                PayJob::dispatchNow($payment->id);
+                PayJob::dispatch($payment->id)->delay(now()->addSeconds(1));
                 /*$exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);*/
                 info("Pay Job called");
 
