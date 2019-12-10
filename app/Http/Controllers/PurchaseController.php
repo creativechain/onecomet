@@ -47,13 +47,15 @@ class PurchaseController extends Controller
         }
 
         //If payment isn't in succeeded status, return to payment screen
+        info("Stripe Payment Status: $paymentIntent->status");
         switch ($paymentIntent->status) {
             case 'succeeded';
                 $payment->status = 'success';
                 $payment->save();
 
                 //Send amount
-                Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);
+                $exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);
+                info("Pay Command called: $exec");
 
                 return View::make('payments.success')
                     ->withPayment($payment);
