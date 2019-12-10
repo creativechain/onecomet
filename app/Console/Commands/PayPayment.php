@@ -2,13 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\BlockchainPriceUpdater;
-use App\Jobs\CoingeckoPriceUpdater;
-use App\Jobs\ExratesPriceUpdater;
-use App\Jobs\PriceUpdater;
 use App\Payment;
 use App\PaymentMeta;
-use App\Utils\NumberUtils;
 use Illuminate\Console\Command;
 
 class PayPayment extends Command
@@ -61,14 +56,14 @@ class PayPayment extends Command
                     $continue = $this->ask("WARNING: This payment is in \"$payment->status\" status. Continue? [y/N]");
                     $continue = strtolower($continue);
                     if ($continue !== 'y' && $continue !== 'yes') {
-                        return;
+                        return false;
                     }
                 }
 
                 $continue = $this->ask("$toSend will be sent to @$to. Continue? [y/N]");
                 $continue = strtolower($continue);
                 if ($continue !== 'y' && $continue !== 'yes') {
-                    return;
+                    return false;
                 }
             }
 
@@ -97,14 +92,16 @@ class PayPayment extends Command
                 $pBlock->save();
 
                 $this->info("Payment sent! $toSend to @$to: Result: $output");
+                return true;
             } else {
                 $this->error("Error sending amount");
-                dd($output);
+                return $output;
             }
 
 
         } else {
             $this->error('Payment not found');
+            return false;
         }
     }
 }
