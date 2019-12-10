@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\PayJob;
 use App\Payment;
 use App\PaymentMeta;
 use App\Utils\PaymentUtils;
@@ -54,8 +55,9 @@ class PurchaseController extends Controller
                 $payment->save();
 
                 //Send amount
-                $exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);
-                info("Pay Command called: $exec");
+                PayJob::dispatchNow($payment->id);
+                /*$exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);
+                info("Pay Command called: $exec");*/
 
                 return View::make('payments.success')
                     ->withPayment($payment);

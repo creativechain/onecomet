@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\PayJob;
 use App\Payment;
 use App\PaymentMeta;
 use Illuminate\Console\Command;
@@ -68,7 +69,8 @@ class PayPayment extends Command
                 }
             }
 
-            $error = false;
+            PayJob::dispatchNow($paymentId);
+            /*$error = false;
             $output = [];
             exec("crea-tx transfer $from $to \"$toSend\" $payment->identifier $wif --node https://nodes.creary.net", $output,  $error);
 
@@ -99,7 +101,9 @@ class PayPayment extends Command
                 error_log("Error sending amount");
                 $this->error("Error sending amount");
                 return $output;
-            }
+            }*/
+
+            return true;
 
 
         } else {
