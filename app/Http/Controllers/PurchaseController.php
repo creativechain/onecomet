@@ -56,8 +56,8 @@ class PurchaseController extends Controller
 
                 //Send amount
                 PayJob::dispatchNow($payment->id);
-                /*$exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);
-                info("Pay Command called: $exec");*/
+                /*$exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);*/
+                info("Pay Job called");
 
                 return View::make('payments.success')
                     ->withPayment($payment);
