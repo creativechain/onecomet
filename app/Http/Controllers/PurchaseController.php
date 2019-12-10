@@ -53,7 +53,7 @@ class PurchaseController extends Controller
                 $payment->save();
 
                 //Send amount
-                Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => false]);
+                Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);
 
                 return View::make('payments.success')
                     ->withPayment($payment);
