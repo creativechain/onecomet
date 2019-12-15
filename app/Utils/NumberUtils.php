@@ -10,10 +10,11 @@ class NumberUtils
      * @param $number
      * @param int $precision
      * @param string $decimalChar
+     * @param string $thounsands_sep
      * @return string
      */
-    public static function format($number, $precision = 0, $decimalChar = '.') {
-        return number_format($number, $precision, $decimalChar, ',');
+    public static function format($number, $precision = 0, $decimalChar = '.', $thounsands_sep = ',') {
+        return number_format($number, $precision, $decimalChar, $thounsands_sep);
     }
 
     /**

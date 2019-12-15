@@ -33,7 +33,7 @@ class Payment extends Model
      * @return string
      */
     public function formatToSend() {
-        return NumberUtils::format($this->to_send / pow(10, 3), 3) . ' ' . strtoupper($this->crypto);
+        return NumberUtils::format($this->to_send / pow(10, 3), 3, '.', '') . ' ' . strtoupper($this->crypto);
     }
 
 }
