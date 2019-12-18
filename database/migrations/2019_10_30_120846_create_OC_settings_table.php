@@ -13,13 +13,16 @@ class CreateOCSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('oc_settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('type');
-            $table->string('meta_key');
-            $table->string('meta_value');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('oc_settings')) {
+            Schema::create('oc_settings', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('type');
+                $table->string('meta_key');
+                $table->string('meta_value');
+                $table->timestamps();
+            });
+        }
+
     }
 
     /**
