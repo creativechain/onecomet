@@ -20,3 +20,4 @@ localfiles
 #Compression file
 /public/css/*
 /public/js/*
+/public/robots.txt

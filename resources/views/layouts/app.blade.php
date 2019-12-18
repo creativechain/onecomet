@@ -16,6 +16,10 @@
     <meta property="og:locale" content="{{ app()->getLocale() }}" />
     <meta property="og:locale:alternate" content="{{ __('web.locale') }}" />
 
+    {{--Twitter Open Graph--}}
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@onecometco" />
+
     <link rel='shortcut icon' type='image/x-icon' href='{{ asset('img/favicon.ico') }}' />
 
     <!-- Scripts -->
