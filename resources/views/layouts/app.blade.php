@@ -8,7 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Onecomet') }} - {{ __('web.title') }}</title>
-    
+
+    <meta property="og:type" content="website">
     <meta property="og:title" content="{{ config('app.name', 'Onecomet') }} - {{ __('web.title') }}" />
     <meta property="og:description" content="{{ __('web.description') }}" />
     <meta property="og:url" content="https://onecomet.co" />
