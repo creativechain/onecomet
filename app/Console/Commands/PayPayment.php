@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Jobs\PayJob;
 use App\Payment;
-use App\PaymentMeta;
 use Illuminate\Console\Command;
 
 class PayPayment extends Command
@@ -47,9 +46,7 @@ class PayPayment extends Command
         $payment = Payment::query()->find($paymentId);
 
         $toSend = $payment->formatToSend();
-        $from = env('CREA_SENDER_USER');
         $to = $payment->send_to;
-        $wif = env('CREA_SENDER_KEY');
 
         //dd($this->options());
         if ($payment) {
