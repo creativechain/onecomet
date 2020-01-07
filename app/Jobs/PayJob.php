@@ -48,7 +48,8 @@ class PayJob implements ShouldQueue
 
             $error = false;
             $output = [];
-            exec("crea-tx transfer $from $to \"$toSend\" $identifier $wif --node https://nodes.creary.net", $output,  $error);
+            $nodes = env('OC_NODE_URL');
+            exec("crea-tx transfer $from $to \"$toSend\" $identifier $wif --node $nodes", $output,  $error);
 
             if (!$error) {
                 $this->payment->status = 'paid';
