@@ -89,6 +89,9 @@ const buyProcess = new Vue({
                 case 3:
                     ids = ['email', 'address', 'phone', 'zip_code', 'name', 'state', 'surname', 'country', 'birth_date'];
 
+                    if (!this.form.phone.startsWith('+')) {
+                        this.form.phone = '+' + this.form.phone;
+                    }
                     for (let x = 0; x < ids.length; x++) {
                         let id = ids[x];
                         let el = document.getElementById(id);
