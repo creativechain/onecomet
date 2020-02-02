@@ -37,6 +37,7 @@ return [
         'input_username_description' => 'It is the name of @user with which you connect to creary.net',
         'how_want_pay' => 'How do you want to pay?',
         'how_want_pay_description' => 'Then select the payment method.',
+        'how_want_pay_unavailable' => 'Service not available (Maintenance)',
     ],
     'step3' => [
         'title' => 'Buy CREA instantly with your preferred payment method',

@@ -37,6 +37,7 @@ return [
         'input_username_description' => 'Es el nombre de @usuario con el que te conectas a creary.net',
         'how_want_pay' => '¿Cómo quieres pagar?',
         'how_want_pay_description' => 'A continuación selecciona el método de pago.',
+        'how_want_pay_unavailable' => 'Servicio no disponible (Mantenimiento)',
     ],
     'step3' => [
         'title' => 'Compra CREA al instante con tu forma de pago preferida',

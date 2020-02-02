@@ -89,7 +89,7 @@
                                     </span>
                                 @endif
                             </div>--}}
-                            <pm-selector v-bind:pm="{{ json_encode($paymentMethods) }}" v-on:pmchange="onPaymentMethodChange">
+                            <pm-selector v-bind:pm="{{ __('web.step2.how_want_pay_unavailable') }}" v-on:pmchange="onPaymentMethodChange">
 
                             </pm-selector>
 {{--                            <div class="dropdown">
