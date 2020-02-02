@@ -113,7 +113,7 @@
     <div class="col-12 col-md-3 text-center mb-3">
         <button v-on:click="backStep(2)" class="font-14 btn btn-secondary text-uppercase font-weight-bold w-100">{{ __('web.back') }}</button>
     </div>
-    <div class="col-12 col-md-3 text-center">
+    {{--<div class="col-12 col-md-3 text-center">
         <button v-on:click="nextStep(2)" class="font-14 btn btn-primary text-uppercase font-weight-bold w-100" >{{ __('web.continue') }}</button>
-    </div>
+    </div>--}}
 </div>

@@ -1,9 +1,12 @@
 <template>
     <div class="dropdown">
         <button class="form-control dropdown-toggle button-select-payment" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div v-if="selectedPm === 'card'" >
+            <div >
                 <img src="/img/select/card/visa.png" alt="Coin crea"> {{ pm }}
             </div>
+<!--            <div v-if="selectedPm === 'card'" >
+                <img src="/img/select/card/visa.png" alt="Coin crea"> {{ pm }}
+            </div>-->
            <!-- <div v-else-if="selectedPm === 'gpay'" >
                 <img src="/img/select/card/g-pay.png" alt="Coin cgy"> {{ pm['gpay'] }}
             </div>
@@ -33,8 +36,8 @@
         props: ['pm'],
         data: function() {
             return {
-                pmk: Object.keys(this.pm),
-                selectedPm:  Object.keys(this.pm)[0],
+                pmk: [] /*Object.keys(this.pm)*/,
+                selectedPm:  "" /*Object.keys(this.pm)[0]*/,
             }
         },
         updated: function() {
@@ -42,9 +45,8 @@
         },
         methods: {
             selectPm: function (pmi, trans, event) {
-                console.log(pmi, trans);
                 this.selectedPm = pmi;
-                this.$emit('pmchange', pmi, this.pm[pmi]);
+                //this.$emit('pmchange', pmi, this.pm[pmi]);
             }
         }
     }
