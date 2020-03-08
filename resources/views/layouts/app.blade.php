@@ -63,11 +63,11 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+{{--                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="">{{ __('web.buy') }}</a></li>
                         <li class="nav-item"><div class="nav-link pointer" id="lang-es">ES</div></li>
                         <li class="nav-item"><div class="nav-link pointer"  id="lang-en">EN</div></li>
-                    </ul>
+                    </ul>--}}
                 </div>
             </div>
         </nav>
@@ -82,7 +82,7 @@
                 <div class="col-12 col-md-3">
                     <p class="titulo-footer font-14 font-weight-bold text-white">{{ __('web.information') }}</p>
                     <ul class="list-unstyled ul-footer-vertical">
-                        <li><a href="{{ route('privacy') }}" target="_blank">{{ __('web.privacy_policy') }}</a></li>
+                        {{--<li><a href="{{ route('privacy') }}" target="_blank">{{ __('web.privacy_policy') }}</a></li>--}}
                         <li><a href="{{ route('tos') }}" target="_blank">{{ __('web.tos') }}</a></li>
                         <li><a href="https://creaproject.io" target="_blank">{{ __('web.who') }}</a></li>
                     </ul>
@@ -114,11 +114,13 @@
                 <div class="col-12 col-md-3">
                     <p class="titulo-footer font-14 font-weight-bold text-white">{{ __('web.social_networks') }}</p>
                     <ul class="list-unstyled list-inline ul-footer-social">
-                        <li class="list-inline-item"><a href="https://twitter.com/onecometco" target="_blank"><i class="fab fa-twitter"></i></a></li>
                         <li class="list-inline-item">
-                            <a href="https://creary.net/@onecomet" target="_blank"><img src="{{URL::asset('img/footer/crea.png')}}" alt="Onecomet" class="img-fluid"></a>
+                            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
                         </li>
-                        <li class="list-inline-item"><a href="https://medium.com/@onecomet" target="_blank"><i class="fab fa-medium-m"></i></a></li>
+                        <li class="list-inline-item">
+                            <a href="#" target="_blank"><img src="{{URL::asset('img/footer/crea.png')}}" alt="Onecomet" class="img-fluid"></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-medium-m"></i></a></li>
                     </ul>
                 </div>
             </div>

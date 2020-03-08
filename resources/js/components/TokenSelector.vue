@@ -10,7 +10,7 @@
                 <img src="/img/select/coins/crea.png" alt="Coin crea"> CREA
             </div>
             <div v-if="at.includes('cgy')" @click="selectToken('cgy', $event)" class="dropdown-item pointer">
-                <img src="/img/select/coins/cgy.png" alt="Coin cgy"> CGY
+                <img src="/img/select/coins/cgy.png" alt="Coin cgy"> CREA Energy
             </div>
             <div v-if="at.includes('cbd')" @click="selectToken('cbd', $event)" class="dropdown-item pointer">
                 <img src="/img/select/coins/cbd.png" alt="Coin cbd"> CBD
@@ -28,7 +28,7 @@
         data: function() {
             return {
                 selectedToken: 'crea',
-                selectionHtml: ' <img src="/img/select/coins/crea.png" alt="Coin crea"> Crea'
+                selectionHtml: ' <img src="/img/select/coins/cgy.png" alt="Coin crea"> CREA Energy'
             }
         },
         methods: {

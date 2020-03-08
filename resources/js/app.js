@@ -15,7 +15,7 @@ window.App = new Application();
 window.Cookies = cookies;
 
 (function() {
-    App.fetchPrice('crea', 'eur');
+    App.fetchPrice('cgy', 'eur');
 
     $(document).ready(function () {
 

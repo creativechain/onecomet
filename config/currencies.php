@@ -9,6 +9,10 @@ return [
         'symbol' => 'CBD',
         'precision' => 3
     ],
+    'cgy' => [
+        'symbol' => 'CGY',
+        'precision' => 3
+    ],
     'btc' => [
         'symbol' => 'BTC',
         'precision' => 8

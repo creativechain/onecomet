@@ -49,7 +49,7 @@ return [
         'postal_code_input' => 'Postal Code of the address',
         'name_input' => 'Enter your name',
         'surname_input' => 'Enter your surname',
-        'state_input' => 'State or Province',
+        'state_input' => 'City',
         'country_input' => 'Country',
         'birth_date_input' => 'Birth date',
         'name' => 'Name',
