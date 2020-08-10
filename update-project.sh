@@ -2,7 +2,7 @@
 
 git reset --hard
 git pull
-composer update
+composer install
 npm install
 php artisan migrate
 php artisan cache:clear
