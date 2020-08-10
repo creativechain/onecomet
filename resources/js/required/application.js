@@ -14,7 +14,7 @@ class Application extends EventEmitter{
             clearInterval(this._interval);
         }
 
-        this._interval = setInterval(function () {
+        let callFunc = function () {
 
             let caller = new HttpClient(`/api/price/${currency}/${counterCurrency}`);
             if (callback) {
@@ -34,8 +34,11 @@ class Application extends EventEmitter{
             }
             caller.get();
 
-        }, 5 * 1000);
+        };
 
+        this._interval = setInterval(callFunc, 5 * 1000);
+
+        callFunc();
 
     }
 }

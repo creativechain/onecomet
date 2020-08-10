@@ -52,7 +52,7 @@ class PayJob implements ShouldQueue
             exec("crea-tx transfer $from $to \"$toSend\" $identifier $wif --node $nodes", $output,  $error);
 
             if (!$error) {
-                $this->payment->status = 'paid';
+                $this->payment->status = 'oc_paid';
                 $this->payment->save();
 
                 $output = implode(" ", $output);

@@ -28,7 +28,7 @@
         data: function() {
             return {
                 selectedToken: 'crea',
-                selectionHtml: ' <img src="/img/select/coins/cgy.png" alt="Coin crea"> CREA Energy'
+                selectionHtml: ' <img src="/img/select/coins/crea.png" alt="Coin crea"> CREA'
             }
         },
         methods: {

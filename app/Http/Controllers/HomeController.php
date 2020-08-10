@@ -32,7 +32,7 @@ class HomeController extends Controller
         ];
 
         //dd($lastPrice);
-        //dd($methods);
+        //dd(PaymentUtils::getTranslatedAvailableMethods());
         return view('home')
             ->withLastPrice($lastPrice)
             ->withFiat($eurConfig)

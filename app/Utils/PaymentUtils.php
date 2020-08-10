@@ -4,6 +4,7 @@
 namespace App\Utils;
 
 
+use App\Cash\Truust\TruustOrder;
 use App\CurrencyPrice;
 use App\Payment;
 use App\PaymentMeta;
@@ -41,7 +42,8 @@ class PaymentUtils
         $eurConfig = CurrenciesUtils::getCurrencyConfig('eur');
         $minPayment = Settings::get('payments', '_eurMinAmount', $eurConfig['min_payment'], false) / pow(10, $eurConfig['precision']);
 
-        $request->validate([
+
+        $validations = [
             'crea_username' => 'required|string',
             'payment_method' => 'required|string|in:card,gpay,apay',
             'token' => 'required|string|in:crea,cbd',
@@ -58,7 +60,10 @@ class PaymentUtils
             'zip_code' => 'required|string',
             'check_tos' => 'required',
             'check_username' => 'required',
-        ]);
+        ];
+
+        $validation = ControllerUtils::validator($request, $validations);
+        //dd($validation->errors());
 
         $paymentMethod = $request->get('payment_method');
         $crypto = $request->get('token');
@@ -80,14 +85,19 @@ class PaymentUtils
 
         $params = $request->except(['payment_method', 'token', 'fiat_currency', 'fiat_amount', 'crea_username', '_token']);
         $params['total'] = ($fiatAmount * 1.029) + 0.25;
+        $params['payment_gateway'] = config('cash.default');
 
+        $metas = array();
         foreach ($params as $k => $value) {
-            $paymentMeta = new PaymentMeta();
-            $paymentMeta->payment_id = $payment->id;
-            $paymentMeta->meta_key = "_$k";
-            $paymentMeta->meta_value = $value;
-            $paymentMeta->save();
+            $metas[] = array(
+                'payment_id' => $payment->id,
+                'meta_value' => $value,
+                'meta_key' => "_$k",
+            );
         }
+
+        PaymentMeta::query()
+            ->insert($metas);
 
         switch ($paymentMethod) {
             case 'card':
@@ -107,44 +117,55 @@ class PaymentUtils
      */
     public static function validateCardPayment(Request $request, Payment $payment) {
 
-        $total = PaymentMeta::query()
+        $paymentMetas = PaymentMeta::query()
             ->where('payment_id', $payment->id)
-            ->where('meta_key', '_total')
-            ->first();
+            ->get()
+            ->pluck('meta_value', 'meta_key');
 
-        $email = PaymentMeta::query()
-            ->where('payment_id', $payment->id)
-            ->where('meta_key', '_email')
-            ->first();
+        $total = $paymentMetas->get('_total');
+        $email = $paymentMetas->get('_email');
 
-        $paymentData = [
-            'name' => __('crypto.' . $payment->crypto . '.name', [], 'en'),
-            'description' => __('crypto.' . $payment->crypto . '.description', [], 'en'),
-            'currency' => $request->get('fiat_currency'),
-            'amount' => intval($total->meta_value * 100),
-            'quantity' => 1,
-            'images' => ['https://creary.net/img/logo_creary_beta.svg']
-        ];
+        $paymentGateway = config('cash.default');
 
-        //dd($paymentData);
-        $session = Session::create([
-            'customer_email' => $email->meta_value,
-            'payment_method_types' => [$request->get('payment_method')],
-            'line_items' => [$paymentData],
-            'success_url' => env('APP_URL') . '/payments/process/{CHECKOUT_SESSION_ID}',
-            'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
-        ]);
+        $order = null;
+        $sessionId = null;
+        if ($paymentGateway === 'truust') {
+
+            $order = TruustOrder::create($payment);
+
+            $sessionId = $order->internalId;
+        } else {
+            $paymentData = [
+                'name' => __('crypto.' . $payment->crypto . '.name', [], 'en'),
+                'description' => __('crypto.' . $payment->crypto . '.description', [], 'en'),
+                'currency' => $request->get('fiat_currency'),
+                'amount' => intval($total * 100),
+                'quantity' => 1,
+                'images' => ['https://creary.net/img/logo_creary_beta.svg']
+            ];
+
+            $order = Session::create([
+                'customer_email' => $email->meta_value,
+                'payment_method_types' => [$request->get('payment_method')],
+                'line_items' => [$paymentData],
+                'success_url' => env('APP_URL') . '/payments/process/{CHECKOUT_SESSION_ID}',
+                'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
+            ]);
+
+            $sessionId = $order->id;
+        }
 
         $pmSessionId = new PaymentMeta();
         $pmSessionId->payment_id = $payment->id;
         $pmSessionId->meta_key = '_sessionId';
-        $pmSessionId->meta_value = $session->id;
+        $pmSessionId->meta_value = $sessionId;
         $pmSessionId->save();
 
         //dd($session);
 
         return View::make('purchase')
-            ->withStripeSession($session);
+            ->withPaymentGateway($paymentGateway)
+            ->withOrder($order);
     }
 
     public static function validateBrowserPayment(Request $request, Payment $payment) {

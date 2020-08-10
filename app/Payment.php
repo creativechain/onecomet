@@ -6,6 +6,7 @@ namespace App;
 
 use App\Utils\NumberUtils;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Payment extends Model
@@ -18,6 +19,11 @@ class Payment extends Model
         parent::__construct($attributes);
         $this->identifier = Str::random();
     }
+
+    /**
+     * @var Collection
+     */
+    private $metas;
 
     /**
      * Get the route key for the model.
@@ -36,4 +42,18 @@ class Payment extends Model
         return NumberUtils::format($this->to_send / pow(10, 3), 3, '.', '') . ' ' . strtoupper($this->crypto);
     }
 
+    /**
+     * @param bool $refresh
+     * @return Collection
+     */
+    public function getMetas($refresh = false) {
+        if (!$this->metas || $refresh) {
+            $this->metas = PaymentMeta::query()
+                ->where('payment_id', $this->id)
+                ->get()
+                ->pluck('meta_value', 'meta_key');
+        }
+
+        return $this->metas;
+    }
 }
