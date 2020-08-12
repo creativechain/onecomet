@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class PayJob implements ShouldQueue
 {
@@ -49,7 +50,9 @@ class PayJob implements ShouldQueue
             $error = false;
             $output = [];
             $nodes = env('OC_NODE_URL');
-            exec("crea-tx transfer $from $to \"$toSend\" $identifier $wif --node $nodes", $output,  $error);
+            $command = "crea-tx transfer $from $to \"$toSend\" $identifier $wif --node $nodes";
+            Log::debug("Command: $command");
+            exec($command, $output,  $error);
 
             if (!$error) {
                 $this->payment->status = 'oc_paid';
@@ -60,18 +63,18 @@ class PayJob implements ShouldQueue
                 info("Payment sent! $toSend to @$to: Result: $output");
                 //dd($txData);
 
-                $pTx = new PaymentMeta();
-                $pTx->payment_id = $this->payment->id;
-                $pTx->meta_key = '_txid';
-                $pTx->meta_value = $txData['id'];
-                $pTx->save();
-
-                $pBlock = new PaymentMeta();
-                $pBlock->payment_id = $this->payment->id;
-                $pBlock->meta_key = '_block';
-                $pBlock->meta_value = $txData['block_num'];
-                $pBlock->save();
-
+                PaymentMeta::query()->insert(array (
+                    [
+                        'payment_id' => $this->payment->id,
+                        'meta_key' => '_txid',
+                        'meta_value' => $txData['id']
+                    ],
+                    [
+                        'payment_id' => $this->payment->id,
+                        'meta_key' => '_block',
+                        'meta_value' => $txData['block_num']
+                    ],
+                ));
 
             } else {
                 error_log("Error sending amount");

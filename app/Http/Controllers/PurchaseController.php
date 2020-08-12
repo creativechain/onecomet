@@ -31,6 +31,7 @@ class PurchaseController extends Controller
     public function processPayment($sessionId) {
 
         //Retrieve payment
+        /** @var Payment $payment */
         $payment = Payment::query()
             ->where('identifier', $sessionId)
             ->first();
@@ -61,10 +62,7 @@ class PurchaseController extends Controller
         }
 
         //Se procede a procesar el pago
-        $paymentMetas = PaymentMeta::query()
-            ->where('payment_id', $payment->id)
-            ->get()
-            ->pluck('meta_value', 'meta_key');
+        $paymentMetas = $payment->getMetas();
 
         //Default PaymentGateway is Stripe
         $paymentGateway = 'stripe';

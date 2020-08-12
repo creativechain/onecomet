@@ -51,12 +51,12 @@ class TruustOrder extends TruustClient
         $metas = PaymentMeta::query()
             ->where('payment_id', $this->payment->id)
             ->get()
-            ->pluck('meta:value', 'meta_key');
+            ->pluck('meta_value', 'meta_key');
 
         $notificationUrl = config('app.url') . "/payments/process/$this->internalId";
         $paymentData = [
             'name' => __('crypto.' . $this->payment->crypto . '.name', [], 'en'),
-            'value' => $metas->get('total'),
+            'value' => $metas->get('_total'),
             'images' => ['https://creary.net/img/logo_creary_beta.svg'],
             'buyer_id' => 747,
             'seller_id' => 747,
