@@ -17,7 +17,7 @@ return [
     'continue' => 'Continuar',
     'rights' => '2019 Algunos derechos reservados Onecomet.co - Creativechain Foundation. G67250124. Santa Caterina 47, 08014, Barcelona, España.',
     'step1' => [
-        'title' => 'Comprar CREA Energy nunca fue tan fácil',
+        'title' => 'Comprar CREA nunca fue tan fácil',
         'much_money' => '¿Cuánto quieres comprar?',
         'input_money' => 'Introduce la cantidad que deseas pagar.',
         'what_token' => '¿Qué tipo de servicio quieres?',
@@ -26,7 +26,7 @@ return [
         'purchase_amount' => 'importe de la compra'
     ],
     'step2' => [
-        'title' => 'Compra CREA Energy al instante con tu forma de pago preferida',
+        'title' => 'Compra CREA al instante con tu forma de pago preferida',
         'how_follow' => '¿Cómo sigo?',
         'read_and_follow' => 'Lee y sigue los pasos que se muestran a continuación.',
         'add_username' => 'Añade el nombre de usuario de CREA, este nombre funciona como una dirección donde se enviará el saldo que estás comprando.',
