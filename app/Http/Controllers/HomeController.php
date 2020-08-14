@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $lastPrice = CurrencyPrice::getBuyPrice('cgy', 'eur');
+        $lastPrice = CurrencyPrice::getBuyPrice('crea', 'eur');
         //TODO: Apply comissions to price
 
         $eurConfig = CurrenciesUtils::getCurrencyConfig('eur');
