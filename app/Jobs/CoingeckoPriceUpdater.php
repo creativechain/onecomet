@@ -28,12 +28,16 @@ class CoingeckoPriceUpdater extends PriceUpdater
 
     public function execute()
     {
-        $ticker = $this->get('/api/v3/simple/price', array( 'ids' => 'creativecoin', 'vs_currencies' => strtolower($this->counterCurrency)));
+        $ticker = $this->get('/api/v3/coins/creativecoin/market_chart', array( 'id' => 'creativecoin', 'vs_currency' => strtolower($this->counterCurrency), 'days' => 1));
 
-        //dd($ticker);
         if ($ticker) {
-            $ticker = $ticker['creativecoin'];
-            $price = $ticker[strtolower($this->counterCurrency)];
+            $prices = $ticker['prices'];
+
+            $price = 0;
+            foreach ($prices as $p) {
+                $price = max($price, $p[1]);
+            }
+
             $counterPrecision = NumberUtils::getDecimalPlaces($price);
             //echo $price . ' ' . $counterPrecision . PHP_EOL;
             $price = $price * pow(10, $counterPrecision);

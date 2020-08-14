@@ -51,6 +51,8 @@ class UpdatePrice extends Command
         CoingeckoPriceUpdater::dispatch('crea', 'usd')->delay(now()->addSeconds(10));
         CoingeckoPriceUpdater::dispatch('crea', 'eur')->delay(now()->addSeconds(10));
         CGYPriceUpdater::dispatch('eur')->delay(now()->addSeconds(10));
+
+        //This must be executed at the end
         BlockchainPriceUpdater::dispatch()->delay(now()->addSeconds(10));
     }
 }
