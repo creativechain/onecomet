@@ -15,7 +15,7 @@ return [
     'social_networks' => 'Social Networks',
     'back' => 'Back',
     'continue' => 'Continue',
-    'rights' => '2019 Some rights reserved Onecomet.co - Creativechain Foundation. G67250124. Santa Caterina 47, 08014, Barcelona, Spain.',
+    'rights' => '2020 Some rights reserved Onecomet.co - Creativechain Foundation. G67250124. Santa Caterina 47, 08014, Barcelona, Spain.',
     'step1' => [
         'title' => 'Buying CREA has never been so easy',
         'much_money' => 'How much you want to buy?',
