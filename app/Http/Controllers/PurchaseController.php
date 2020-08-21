@@ -93,6 +93,9 @@ class PurchaseController extends Controller
                 $payment->status = $paymentStatus;
                 $payment->save();
 
+                //Accept and validate payment
+                $order = TruustOrder::finishPayment($payment);
+
                 //Send amount
                 PayJob::dispatch($payment->id)->delay(now()->addSeconds(1));
                 /*$exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);*/

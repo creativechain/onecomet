@@ -20,7 +20,7 @@ class TruustClient
     public function __construct()
     {
         if (config('app.env') === 'production') {
-            $this->url = 'https://api.truust.io/2.0';
+            $this->url = 'https://api.truust.io/2.0/';
         }
 
         $this->public_key = config('cash.truust.public_key');

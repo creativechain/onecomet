@@ -11,5 +11,7 @@ return [
     'truust' => [
         'public_key' => env('TRUUST_PUBLIC_KEY'),
         'secret_key' => env('TRUUST_SECRET_KEY'),
+        'customer_id' => env('TRUUST_CUSTOMER_ID'),
+        'wallet_id' => env('TRUUST_WALLET_ID')
     ],
 ];

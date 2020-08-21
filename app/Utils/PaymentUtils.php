@@ -84,7 +84,7 @@ class PaymentUtils
         $payment->save();
 
         $params = $request->except(['payment_method', 'token', 'fiat_currency', 'fiat_amount', 'crea_username', '_token']);
-        $params['total'] = ($fiatAmount * 1.029) + 0.25;
+        $params['total'] = ($fiatAmount * 1.018) + 0;
         $params['payment_gateway'] = config('cash.default');
 
         $metas = array();
@@ -141,7 +141,7 @@ class PaymentUtils
                 'currency' => $request->get('fiat_currency'),
                 'amount' => intval($total * 100),
                 'quantity' => 1,
-                'images' => ['https://creary.net/img/logo_creary_beta.svg']
+                'images' => ['https://creary.net/img/logo_creary_beta.svg'],
             ];
 
             $order = Session::create([

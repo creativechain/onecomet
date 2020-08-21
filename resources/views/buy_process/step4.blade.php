@@ -59,7 +59,7 @@
                 <ul class="list-unstyled">
                     <li><p class="font-14">@{{ ("" + lastPrice.fiatToToken(form.amount)).replace('.', ',') }} @{{ lastPrice.currency.toUpperCase() }}<span class="c-primary float-right">@{{ comissionAmount.toFixed(2).replace('.', ',') }} €</span></p></li>
                     <li><p class="font-14">{{ __('web.step4.onecomet_fee') }}<span class="c-primary float-right">@{{ ocComission.toFixed(2).replace('.', ',') }} €</span></p></li>
-                    <li><p class="font-14">{{ __('web.step4.card_fee') }}<span class="c-primary float-right">@{{ stripeComission.toFixed(2).replace('.', ',') }} €</span></p></li>
+                    <li><p class="font-14">{{ __('web.step4.card_fee') }}<span class="c-primary float-right">@{{ pgComission.toFixed(2).replace('.', ',') }} €</span></p></li>
                     <li><p class="font-16">{{ __('web.step4.total') }}<span class="font-weight-bold c-primary float-right">@{{ total.toFixed(2).replace('.', ',') }}€</span></p></li>
                 </ul>
             </div>

@@ -54,16 +54,18 @@ class TruustOrder extends TruustClient
             ->pluck('meta_value', 'meta_key');
 
         $notificationUrl = config('app.url') . "/payments/process/$this->internalId";
+        $cryptoName =  __('crypto.' . $this->payment->crypto . '.name', [], 'en');
         $paymentData = [
-            'name' => __('crypto.' . $this->payment->crypto . '.name', [], 'en'),
+            'name' => "Onecomet $cryptoName $this->internalId",
             'value' => $metas->get('_total'),
             'images' => ['https://creary.net/img/logo_creary_beta.svg'],
-            'buyer_id' => 747,
-            'seller_id' => 747,
+            'buyer_id' => config('cash.truust.customer_id'),
+            'seller_id' => config('cash.truust.customer_id'),
             'buyer_confirmed_url' => $notificationUrl,
             'buyer_denied_url' => $notificationUrl,
             'seller_confirmed_url' => $notificationUrl,
             'seller_denied_url' => $notificationUrl,
+            'fee_percent' => 2.8
         ];
 
         $result = $this->setResult($this->post($paymentData, 'orders'));
@@ -86,6 +88,20 @@ class TruustOrder extends TruustClient
     public function accept() {
         $truustId = $this->payment->getMetas()->get('_external_id');
         $this->setResult($this->post([], "orders/$truustId/accept"));
+
+    }
+
+    public function validate() {
+        //For validate order, first, create a payout
+        $truustId = $this->payment->getMetas()->get('_external_id');
+        $this->setResult($this->post([
+            'type' => 'WALLET',
+            'wallet_id' => config('cash.truust.wallet_id'),
+            'order_id' => $truustId
+        ], "payouts"));
+
+        //Then, valdiate order
+        $this->setResult($this->post([], "orders/$truustId/validate"));
 
     }
 
@@ -123,6 +139,29 @@ class TruustOrder extends TruustClient
     public static function acceptPayment($payment) {
         $order = new TruustOrder($payment);
         $order->accept();
+
+        return $order;
+    }
+
+    /**
+     * @param $payment
+     * @return TruustOrder
+     */
+    public static function validatePayment($payment) {
+        $order = new TruustOrder($payment);
+        $order->validate();
+
+        return $order;
+    }
+
+    /**
+     * @param $payment
+     * @return TruustOrder
+     */
+    public static function finishPayment($payment) {
+        $order = new TruustOrder($payment);
+        $order->accept();
+        $order->validate();
 
         return $order;
     }

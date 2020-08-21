@@ -62,13 +62,13 @@ const buyProcess = new Vue({
 
             return this.settings['fee'] + ' ' . this.fiat.symbol;
         },
-        stripeComission: function () {
-            let fixed = 0.25;
+        pgComission: function () {
+            let fixed = 0;
 
-            return ((this.form.amount * 0.029) + fixed);
+            return ((this.form.amount * 0.018) + fixed);
         },
         total: function () {
-            return parseFloat(this.form.amount) + this.stripeComission;
+            return parseFloat(this.form.amount) + this.pgComission;
         },
     },
     methods: {
