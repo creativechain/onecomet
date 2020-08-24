@@ -40,4 +40,6 @@ Route::get('/test', 'TestController@index')->name('test');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+   /* Route::get('/', 'Voyager\VoyagerController@index');*/
 });

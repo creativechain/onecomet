@@ -12,7 +12,7 @@ class TruustClient
     private $url = 'https://api-sandbox.truust.io/2.0/';
     private $public_key;
     private $secret_key;
-    private $endpoint;
+    private $client;
 
     /**
      * Truust constructor.
@@ -22,6 +22,10 @@ class TruustClient
         if (config('app.env') === 'production') {
             $this->url = 'https://api.truust.io/2.0/';
         }
+
+        $this->client = new Client([
+            'base_uri' => $this->url
+        ]);
 
         $this->public_key = config('cash.truust.public_key');
         $this->secret_key = config('cash.truust.secret_key');
@@ -33,7 +37,6 @@ class TruustClient
      * @return mixed
      */
     protected function post($data, $endpoint) {
-        $client = new Client();
 
         $requestConfig = [
             'headers' => [
@@ -43,7 +46,7 @@ class TruustClient
             'json' => $data
         ];
 
-        $response = $client->post("$this->url$endpoint", $requestConfig);
+        $response = $this->client->post($endpoint, $requestConfig);
 
         if ($response->getStatusCode() > 299) {
             throw new \RuntimeException('Truust error:' . $response->getBody());
@@ -65,18 +68,20 @@ class TruustClient
      * @param $endpoint
      * @return mixed
      */
-    protected function get($data, $endpoint) {
-        $client = new Client();
+    protected function get($endpoint, $data = null) {
 
         $requestConfig = [
             'headers' => [
                 'Accept' => 'application/json',
                 'Authorization' => "Bearer $this->secret_key",
-            ],
-            'json' => $data
+            ]
         ];
 
-        $response = $client->get("$this->url$endpoint", $requestConfig);
+        if ($data) {
+            $requestConfig['query'] = $data;
+        }
+
+        $response = $this->client->get($endpoint, $requestConfig);
 
         if ($response->getStatusCode() > 299) {
             throw new \RuntimeException('Truust error:' . $response->getBody());
