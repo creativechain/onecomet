@@ -107,7 +107,7 @@ class TruustOrder extends TruustClient
 
     public function view() {
         $truustId = $this->payment->getMetas()->get('_external_id');
-        $this->setResult($this->get([], "orders/$truustId"));
+        $this->setResult($this->get("orders/$truustId"));
     }
 
     /**
