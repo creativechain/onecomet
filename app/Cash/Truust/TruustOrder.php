@@ -21,11 +21,6 @@ class TruustOrder extends TruustClient
     public $internalId;
 
     /**
-     * @var Collection
-     */
-    public $result;
-
-    /**
      * TruustOrder constructor.
      * @param Payment $payment
      */
@@ -37,21 +32,8 @@ class TruustOrder extends TruustClient
         $this->internalId = $payment->identifier;
     }
 
-    /**
-     * @param $result
-     * @return Collection
-     */
-    private function setResult($result) {
-        $result = collect($result['data']);
-        $this->result = $result;
-        return $result;
-    }
-
     public function send() {
-        $metas = PaymentMeta::query()
-            ->where('payment_id', $this->payment->id)
-            ->get()
-            ->pluck('meta_value', 'meta_key');
+        $metas = $this->payment->getMetas(true);
 
         $notificationUrl = config('app.url') . "/payments/process/$this->internalId";
         $cryptoName =  __('crypto.' . $this->payment->crypto . '.name', [], 'en');
@@ -59,7 +41,7 @@ class TruustOrder extends TruustClient
             'name' => "Onecomet $cryptoName $this->internalId",
             'value' => $metas->get('_total'),
             'images' => ['https://creary.net/img/logo_creary_beta.svg'],
-            'buyer_id' => config('cash.truust.customer_id'),
+            'buyer_id' => $metas->get('_customer_id'),
             'seller_id' => config('cash.truust.customer_id'),
             'buyer_confirmed_url' => $notificationUrl,
             'buyer_denied_url' => $notificationUrl,

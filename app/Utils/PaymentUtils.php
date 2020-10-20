@@ -4,6 +4,8 @@
 namespace App\Utils;
 
 
+use App\Cash\Truust\TruustClient;
+use App\Cash\Truust\TruustCustomer;
 use App\Cash\Truust\TruustOrder;
 use App\CurrencyPrice;
 use App\Payment;
@@ -38,6 +40,11 @@ class PaymentUtils
         return $tMethods;
     }
 
+    /**
+     * @param Request $request
+     * @return mixed|void
+     * @throws \Stripe\Exception\ApiErrorException
+     */
     public static function validatePayment(Request $request) {
         $eurConfig = CurrenciesUtils::getCurrencyConfig('eur');
         $minPayment = Settings::get('payments', '_eurMinAmount', $eurConfig['min_payment'], false) / pow(10, $eurConfig['precision']);
@@ -131,6 +138,8 @@ class PaymentUtils
         $sessionId = null;
         if ($paymentGateway === 'truust') {
 
+            $truustCustomer = new TruustCustomer($payment);
+            $truustCustomer->create();
             $order = TruustOrder::create($payment);
 
             $sessionId = $order->internalId;

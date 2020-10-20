@@ -17,7 +17,7 @@ class PaymentMeta extends Model
      * @var array
      */
     protected $fillable = [
-        'meta_key', 'meta_value'
+        'payment_id', 'meta_key', 'meta_value'
     ];
 
     public function user() {
