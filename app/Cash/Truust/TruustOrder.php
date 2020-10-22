@@ -77,8 +77,8 @@ class TruustOrder extends TruustClient
         //For validate order, first, create a payout
         $truustId = $this->payment->getMetas()->get('_external_id');
         $this->setResult($this->post([
-            'type' => 'WALLET',
-            'wallet_id' => config('cash.truust.wallet_id'),
+            'type' => 'ACCOUNT',
+            'bankaccount_id' => config('cash.truust.bank_account_id'),
             'order_id' => $truustId
         ], "payouts"));
 
