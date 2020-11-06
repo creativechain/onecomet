@@ -73,6 +73,18 @@
         </nav>
 
         <main class="py-4">
+            @if(!$errors->isEmpty())
+                <div class="container-fluid">
+                    <ul class="bg-danger" style="padding: 20px">
+                        @foreach($errors->messages() as $cat => $messages)
+                            @foreach($messages as $m)
+                                <li> {{ $m }}</li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                    {{--<p class="bg-danger" style="padding: 20px">{{ $errors }}</p>--}}
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>

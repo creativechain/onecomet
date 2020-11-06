@@ -70,7 +70,10 @@ class PaymentUtils
         ];
 
         $validation = ControllerUtils::validator($request, $validations);
-        //dd($validation->errors());
+        //dd($validation->errors(), $validation->errors()->isEmpty());
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation);
+        }
 
         $paymentMethod = $request->get('payment_method');
         $crypto = $request->get('token');
