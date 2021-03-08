@@ -36,7 +36,7 @@ Route::get('/summary', 'SummaryController@index')->name('summary');
 Route::get('/congratulation', 'CongratulationController@index')->name('congratulations');
 
 
-Route::get('/test', 'TestController@index')->name('test');
+/*Route::get('/test', 'TestController@index')->name('test');*/
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
