@@ -39,7 +39,7 @@ class ProcessPaymentsJob implements ShouldQueue
         $endDate = Carbon::now();
 
         $payments = Payment::query()
-            ->where('status', '!=', 'created')
+            ->where('status', '!=', 'oc_paid')
             ->whereBetween('updated_at', [$startDate, $endDate])
             ->get();
 
