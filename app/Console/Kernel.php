@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\ProcessPaymentsJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,6 +29,8 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->command('oc:update-price')->hourly();
+        $schedule->job(new ProcessPaymentsJob())->everyMinute()
+            ->withoutOverlapping();
     }
 
     /**
