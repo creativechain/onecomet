@@ -46,7 +46,7 @@ class ProcessPaymentsJob implements ShouldQueue
         Log::debug('Processing ' . $payments->count() . ' payments');
 
         foreach ($payments as $payment) {
-            Log::debug('Processing payment' . $payment->identifier . ' in status ' . $payment->status);
+            Log::debug('Processing ' . $payment);
 
             try {
                 $order = TruustOrder::viewPayment($payment);
@@ -68,17 +68,17 @@ class ProcessPaymentsJob implements ShouldQueue
                         //Send amount
                         PayJob::dispatch($payment->id)->delay(now()->addSeconds(1));
                         /*$exec = Artisan::call('oc:pay', ['paymentId' => $payment->id, '--no-interactive' => true]);*/
-                        info("Launch pay job for payment " . $payment->identifier . '. Real status: ' . $paymentStatus);
+                        info("Launch pay job for payment " . $payment . '. Real status: ' . $paymentStatus);
                         break;
                     case 'cancelled':
                     case 'canceled':
                     case 'failure':
                     case 'rejected':
                     case 'blocked_release':
-                        Log::info("Payment " . $payment->identifier . ' rejected. Real status: ' . $paymentStatus);
+                        Log::info("Payment " . $payment . ' rejected. Real status: ' . $paymentStatus);
                 }
             } catch (\Exception $e) {
-                Log::error('Error processing payment ' . $payment->identifer, $e->getTrace());
+                Log::error('Error processing payment ' . $payment, $e->getTrace());
             }
         }
     }

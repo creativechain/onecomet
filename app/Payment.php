@@ -56,4 +56,9 @@ class Payment extends Model
 
         return $this->metas;
     }
+
+    public function __toString()
+    {
+        return 'Payment [i=' . $this->identifier . ', s=' . $this->status . ']';
+    }
 }
