@@ -98,7 +98,7 @@ class PurchaseController extends Controller
                 ]);
             }
 
-            $payment->status = strtolower($paymentMeta['status']);
+            $payment->status = strtolower($paymentData['status']);
             $payment->save();
 
             Log::debug('Executing PayJob for ' . $payment);
