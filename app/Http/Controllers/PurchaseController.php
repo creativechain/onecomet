@@ -86,7 +86,8 @@ class PurchaseController extends Controller
 
         if ($paymentMeta) {
             /** @var Payment $payment */
-            $payment = $paymentMeta->payment;
+            $payment = Payment::query()
+                ->findOrFail($paymentMeta->payment_id);
 
             Log::debug('Webhook caught. Processing ' . $payment);
             //Se comprueba el estado del pago previamente para saber si hace falta procesarlo
