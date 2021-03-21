@@ -20,7 +20,10 @@ class PaymentMeta extends Model
         'payment_id', 'meta_key', 'meta_value'
     ];
 
-    public function user() {
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payment() {
         return $this->belongsTo('App\Payment');
     }
 }

@@ -150,8 +150,47 @@ class PurchaseController extends Controller
      */
     public function statusPayment(Request $request) {
 
-        Log::debug('Payout payment', $request->input());
-        Log::debug('Order data', $request->get('escrow'));
+        $data = $request->input();
+
+        Log::debug('Webhook', $data);
+
+        $paymentData = $data[0]['escrow'];
+
+        $paymentMeta = PaymentMeta::query()
+            ->where('meta_key', '_external_id')
+            ->where('meta_value', $paymentData['id'])
+            ->first();
+
+        if ($paymentMeta) {
+            /** @var Payment $payment */
+            $payment = $paymentMeta->payment;
+
+            Log::debug('Webhook caught. Processing ' . $payment);
+            //Se comprueba el estado del pago previamente para saber si hace falta procesarlo
+            if ($payment->status === 'oc_paid') {
+                return response()->json([
+                    'status' => 'processed',
+                    'message' => 'Payment already processed'
+                ]);
+            }
+
+            $payment->status = strtolower($paymentMeta['status']);
+            $payment->save();
+
+            Log::debug('Executing PayJob for ' . $payment);
+            if ($payment->status === 'published') {
+                PayJob::dispatch($payment->id);
+            } else {
+                Log::debug('Not pay payment because is ' . $payment);
+            }
+        } else {
+            Log::error('No payment_meta recorded for orderId: ' . $paymentData['id']);
+            return response()
+                ->json([
+                    'status' => 'error',
+                    'message' => 'Unknown payment'
+                ], 404);
+        }
 
         return response()
             ->json([

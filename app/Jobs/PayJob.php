@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class PayJob implements ShouldQueue
 {
@@ -60,7 +61,7 @@ class PayJob implements ShouldQueue
 
                 $output = implode(" ", $output);
                 $txData = json_decode($output, true);
-                info("Payment sent! $toSend to @$to: Result: $output");
+                Log::info("Payment sent! $toSend to @$to: Result: $output");
                 //dd($txData);
 
                 PaymentMeta::query()->insert(array (
@@ -80,7 +81,7 @@ class PayJob implements ShouldQueue
                 error_log("Error sending amount");
             }
         } else {
-            throw new DatabaseObjectNotFoundException("Payment with ID $this->paymentId not found");
+            throw new NotFoundResourceException("Payment with ID $this->paymentId not found");
         }
     }
 }
