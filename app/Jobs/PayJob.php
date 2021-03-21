@@ -78,7 +78,7 @@ class PayJob implements ShouldQueue
                 ));
 
             } else {
-                Log::error("Error sending amount. Exit Code . " . $error);
+                Log::error("Error sending amount. Exit Code " . $error);
                 if (config('env') !== 'production') {
                     Log::info('App is not in production environment. Simulating success payment... ');
                     $this->payment->status = 'oc_paid';
