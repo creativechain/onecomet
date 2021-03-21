@@ -150,7 +150,8 @@ class PurchaseController extends Controller
      */
     public function statusPayment(Request $request) {
 
-        Log::debug('Payout payment', $request->all());
+        Log::debug('Payout payment', $request->input());
+        Log::debug('Order data', $request->get('escrow'));
 
         return response()
             ->json([
