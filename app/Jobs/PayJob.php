@@ -78,7 +78,12 @@ class PayJob implements ShouldQueue
                 ));
 
             } else {
-                error_log("Error sending amount");
+                Log::error("Error sending amount", $error);
+                if (config('env') !== 'production') {
+                    Log::info('App is not in production environment. Simulating success payment... ');
+                    $this->payment->status = 'oc_paid';
+                    $this->payment->save();
+                }
             }
         } else {
             throw new NotFoundResourceException("Payment with ID $this->paymentId not found");
