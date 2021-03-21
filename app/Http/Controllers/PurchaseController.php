@@ -9,6 +9,7 @@ use App\PaymentMeta;
 use App\Utils\PaymentUtils;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Stripe\Checkout\Session;
@@ -141,5 +142,20 @@ class PurchaseController extends Controller
         return View::make('payments.canceled')
             ->withPayment($payment);
 
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function statusPayment(Request $request) {
+
+        Log::debug('Payout payment', $request->all());
+
+        return response()
+            ->json([
+                'status' => 'ok',
+                'message' => 'Payment event processed'
+            ]);
     }
 }
