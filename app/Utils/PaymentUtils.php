@@ -42,7 +42,7 @@ class PaymentUtils
 
     /**
      * @param Request $request
-     * @return mixed|void
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|void
      * @throws \Stripe\Exception\ApiErrorException
      */
     public static function validatePayment(Request $request) {
@@ -122,7 +122,7 @@ class PaymentUtils
     /**
      * @param Request $request
      * @param Payment $payment
-     * @return mixed
+     * @return \Illuminate\Contracts\View\View
      * @throws \Stripe\Exception\ApiErrorException
      */
     public static function validateCardPayment(Request $request, Payment $payment) {
@@ -161,7 +161,7 @@ class PaymentUtils
                 'payment_method_types' => [$request->get('payment_method')],
                 'line_items' => [$paymentData],
                 'success_url' => env('APP_URL') . '/payments/process/{CHECKOUT_SESSION_ID}',
-                'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
+                'cancel_url' =>  env('APP_URL') . '/payments/process/{CHECKOUT_SESSION_ID}'
             ]);
 
             $sessionId = $order->id;
@@ -176,8 +176,8 @@ class PaymentUtils
         //dd($session);
 
         return View::make('purchase')
-            ->withPaymentGateway($paymentGateway)
-            ->withOrder($order);
+            ->with('paymentGateway', $paymentGateway)
+            ->with('order', $order);
     }
 
     public static function validateBrowserPayment(Request $request, Payment $payment) {
