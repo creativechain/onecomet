@@ -29,8 +29,6 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->command('oc:update-price')->hourly();
-        $schedule->job(new ProcessPaymentsJob())->everyMinute()
-            ->withoutOverlapping();
     }
 
     /**
