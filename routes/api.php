@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/price/{currency}/{counter_currency}', 'ApiController@getPrice');
+
+Route::post('/payments/status', 'PurchaseController@statusPayment')->name('payments.status');
