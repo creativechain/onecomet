@@ -99,6 +99,9 @@ class PaymentUtils
 
         $metas = array();
         foreach ($params as $k => $value) {
+            if ($k === 'crea_username') {
+                $value = strtolower($value);
+            }
             $metas[] = array(
                 'payment_id' => $payment->id,
                 'meta_value' => $value,
