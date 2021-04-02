@@ -12,9 +12,8 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
 
     public function index()
     {
-        $wallet = (new TruustWallet())->data();
+        //$wallet = (new TruustWallet())->data();
 
-        return Voyager::view('voyager::index')
-            ->withWallet($wallet);
+        return Voyager::view('voyager::index');
     }
 }
