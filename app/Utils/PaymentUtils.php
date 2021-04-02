@@ -90,7 +90,7 @@ class PaymentUtils
         $payment->amount = intval($fiatAmount * 100);
         $payment->price = intval($price->fiatToToken(1, false)); //1 TOKEN => X FIAT
         $payment->to_send = intval($cryptoAmountToSend * 1000);
-        $payment->send_to = $request->get('crea_username');
+        $payment->send_to = strtolower($request->get('crea_username'));
         $payment->save();
 
         $params = $request->except(['payment_method', 'token', 'fiat_currency', 'fiat_amount', 'crea_username', '_token']);
@@ -99,9 +99,6 @@ class PaymentUtils
 
         $metas = array();
         foreach ($params as $k => $value) {
-            if ($k === 'crea_username') {
-                $value = strtolower($value);
-            }
             $metas[] = array(
                 'payment_id' => $payment->id,
                 'meta_value' => $value,
