@@ -89,8 +89,28 @@
         </div>
         <div class="row mt-5 ">
             <div class="col-12 text-center">
-                <button v-on:click="nextStep(1)" class="btn btn-primary text-uppercase font-14 font-weight-bold">{{ __('web.buy') }}</button>
+                <button class="btn btn-primary text-uppercase font-14 font-weight-bold" data-toggle="modal" data-target="#oosModal">{{ __('web.buy') }}</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal" tabindex="-1" id="oosModal" aria-labelledby="oosModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Out Of Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>{{ __('web.out_of_service') }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('web.ok') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
