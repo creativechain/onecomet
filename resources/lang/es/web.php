@@ -94,6 +94,7 @@ return [
         'contact_info' => 'Cualquier duda o problema relacionado con esta operación ponte en contacto con nuestro equipo de soporte en support@onecomet.co'
     ],
     'out_of_service' => 'Onecomet está fuera de servicio. No hay fecha para reactivar el servicio para tarjeta de crédito. Puedes seguir cualquier actualización en nuestras redes sociales. ',
+    'out_of_service_title' => 'Fuera de servicio',
     'ok' => 'Aceptar'
 
 ];

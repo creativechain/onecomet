@@ -95,5 +95,6 @@ return [
         'contact_info' => 'Any questions or problems related to this operation contact our support team at support@onecomet.co'
     ],
     'out_of_service' => 'Onecomet is out of service. There is no date to reactivate the credit card service. You can follow any updates on our social networks.',
+    'out_of_service_title' => 'Out of service',
     'ok' => 'Ok'
 ];
