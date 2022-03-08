@@ -4,6 +4,8 @@
 namespace App\Utils;
 
 
+use App\Cash\Truust\TruustClient;
+use App\Cash\Truust\TruustCustomer;
 use App\Cash\Truust\TruustOrder;
 use App\CurrencyPrice;
 use App\Payment;
@@ -38,6 +40,11 @@ class PaymentUtils
         return $tMethods;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|void
+     * @throws \Stripe\Exception\ApiErrorException
+     */
     public static function validatePayment(Request $request) {
         $eurConfig = CurrenciesUtils::getCurrencyConfig('eur');
         $minPayment = Settings::get('payments', '_eurMinAmount', $eurConfig['min_payment'], false) / pow(10, $eurConfig['precision']);
@@ -63,7 +70,10 @@ class PaymentUtils
         ];
 
         $validation = ControllerUtils::validator($request, $validations);
-        //dd($validation->errors());
+        //dd($validation->errors(), $validation->errors()->isEmpty());
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation);
+        }
 
         $paymentMethod = $request->get('payment_method');
         $crypto = $request->get('token');
@@ -80,7 +90,7 @@ class PaymentUtils
         $payment->amount = intval($fiatAmount * 100);
         $payment->price = intval($price->fiatToToken(1, false)); //1 TOKEN => X FIAT
         $payment->to_send = intval($cryptoAmountToSend * 1000);
-        $payment->send_to = $request->get('crea_username');
+        $payment->send_to = strtolower($request->get('crea_username'));
         $payment->save();
 
         $params = $request->except(['payment_method', 'token', 'fiat_currency', 'fiat_amount', 'crea_username', '_token']);
@@ -112,7 +122,7 @@ class PaymentUtils
     /**
      * @param Request $request
      * @param Payment $payment
-     * @return mixed
+     * @return \Illuminate\Contracts\View\View
      * @throws \Stripe\Exception\ApiErrorException
      */
     public static function validateCardPayment(Request $request, Payment $payment) {
@@ -131,6 +141,8 @@ class PaymentUtils
         $sessionId = null;
         if ($paymentGateway === 'truust') {
 
+            $truustCustomer = new TruustCustomer($payment);
+            $truustCustomer->create();
             $order = TruustOrder::create($payment);
 
             $sessionId = $order->internalId;
@@ -149,7 +161,7 @@ class PaymentUtils
                 'payment_method_types' => [$request->get('payment_method')],
                 'line_items' => [$paymentData],
                 'success_url' => env('APP_URL') . '/payments/process/{CHECKOUT_SESSION_ID}',
-                'cancel_url' =>  env('APP_URL') . '/payments/cancel/{CHECKOUT_SESSION_ID}'
+                'cancel_url' =>  env('APP_URL') . '/payments/process/{CHECKOUT_SESSION_ID}'
             ]);
 
             $sessionId = $order->id;
@@ -164,8 +176,8 @@ class PaymentUtils
         //dd($session);
 
         return View::make('purchase')
-            ->withPaymentGateway($paymentGateway)
-            ->withOrder($order);
+            ->with('paymentGateway', $paymentGateway)
+            ->with('order', $order);
     }
 
     public static function validateBrowserPayment(Request $request, Payment $payment) {

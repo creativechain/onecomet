@@ -5,6 +5,7 @@ namespace App\Cash\Truust;
 
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
 class TruustClient
@@ -13,6 +14,11 @@ class TruustClient
     private $public_key;
     private $secret_key;
     private $client;
+
+    /**
+     * @var Collection
+     */
+    public $result;
 
     /**
      * Truust constructor.
@@ -98,4 +104,13 @@ class TruustClient
         return $result;
     }
 
+    /**
+     * @param $result
+     * @return Collection
+     */
+    protected function setResult($result) {
+        $result = collect($result['data']);
+        $this->result = $result;
+        return $result;
+    }
 }

@@ -27,7 +27,6 @@ Route::post('/purchase/buy', 'PurchaseController@purchaseBuy')->name('purchase.b
 
 Route::group(['prefix' => 'payments'], function () {
     Route::get('/process/{sessionId}', 'PurchaseController@processPayment')->name('payments.process');
-    Route::get('/cancel/{sessionId}', 'PurchaseController@cancelPayment')->name('payments.cancel');
 });
 
 Route::get('/address', 'AddressController@index')->name('address');
@@ -36,7 +35,7 @@ Route::get('/summary', 'SummaryController@index')->name('summary');
 Route::get('/congratulation', 'CongratulationController@index')->name('congratulations');
 
 
-Route::get('/test', 'TestController@index')->name('test');
+/*Route::get('/test', 'TestController@index')->name('test');*/
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
